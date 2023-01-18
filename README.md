@@ -5,6 +5,7 @@
 Reference for implementation clean architecture: 
 - [the clean architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html) 
 - [hexagonal architecture](https://medium.com/ssense-tech/hexagonal-architecture-there-are-always-two-sides-to-every-story-bc0780ed7d9c)
+- [project layout from golang standards](https://github.com/golang-standards/project-layout)
 
 ## Tech Stack
 - nodejs
