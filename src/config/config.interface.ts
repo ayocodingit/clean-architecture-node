@@ -12,10 +12,14 @@ export interface Config {
         username: string
         password: string
         database: string
-        auth_source?: string
+        auth_source: string
     }
     jwt: {
         access_key: string
         algorithm: string
+    }
+    elastic: {
+        cloud_id: string
+        api_key: string
     }
 }
