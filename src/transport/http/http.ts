@@ -7,7 +7,7 @@ import helmet from 'helmet'
 import compression from 'compression'
 import { Config } from '../../config/config.interface'
 import jwt from 'jsonwebtoken'
-import customError from '../../pkg/customError'
+import Error from '../../pkg/error'
 
 class Http {
     public app: Express
@@ -28,7 +28,7 @@ class Http {
 
     private pageNotFound = () => {
         this.app.get('*', (_: Request, res: Response) => {
-            throw new customError(
+            throw new Error(
                 statusCode.NOT_FOUND,
                 statusCode[statusCode.NOT_FOUND]
             )
@@ -36,7 +36,7 @@ class Http {
     }
 
     private onError = (
-        error: customError,
+        error: Error,
         req: Request,
         res: Response,
         next: NextFunction
@@ -81,7 +81,7 @@ class Http {
             }
 
             return next(
-                new customError(
+                new Error(
                     statusCode.UNAUTHORIZED,
                     statusCode[statusCode.UNAUTHORIZED]
                 )
