@@ -1,4 +1,3 @@
-import Logger from '../pkg/logger'
 import configSchema from './config.schema'
 
 export default (env: any) => {
