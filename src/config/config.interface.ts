@@ -12,6 +12,7 @@ export interface Config {
         username: string
         password: string
         database: string
+        auth_source?: string
     }
     jwt: {
         access_key: string

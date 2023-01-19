@@ -7,7 +7,7 @@ class Mongo {
         mongoose.set('strictQuery', false)
         return mongoose
             .connect(`mongodb://${db.host}:${db.port}/${db.database}`, {
-                authSource: 'admin',
+                authSource: db.auth_source,
                 pass: db.password,
                 user: db.username,
             })
