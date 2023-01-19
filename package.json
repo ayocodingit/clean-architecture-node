@@ -10,7 +10,13 @@
         "lint:fix": "npx prettier --write .",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
-    "keywords": ["clean-architecture", "nodejs", "typescript", "express", "javascript"],
+    "keywords": [
+        "clean-architecture",
+        "nodejs",
+        "typescript",
+        "express",
+        "javascript"
+    ],
     "author": "ayocodingit",
     "license": "ISC",
     "devDependencies": {

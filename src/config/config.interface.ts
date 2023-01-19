@@ -6,7 +6,7 @@ export interface Config {
         }
         log: string
     }
-    database: {
+    db: {
         host: string
         port: number
         username: string

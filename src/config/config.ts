@@ -14,7 +14,7 @@ const config: Config = {
         },
         log: env.APP_LOG,
     },
-    database: {
+    db: {
         host: env.DB_HOST,
         port: env.DB_PORT,
         username: env.DB_USERNAME,
