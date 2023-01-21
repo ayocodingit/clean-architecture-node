@@ -34,7 +34,7 @@ const config: Config = {
         host: env.REDIS_HOST,
         port: env.REDIS_PORT,
         ttl: env.REDIS_TTL,
-    }
+    },
 }
 
 export default config
