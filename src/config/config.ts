@@ -30,6 +30,11 @@ const config: Config = {
         cloud_id: env.ELASTIC_CLOUD_ID,
         api_key: env.ELASTIC_API_KEY,
     },
+    redis: {
+        host: env.REDIS_HOST,
+        port: env.REDIS_PORT,
+        ttl: env.REDIS_TTL,
+    }
 }
 
 export default config

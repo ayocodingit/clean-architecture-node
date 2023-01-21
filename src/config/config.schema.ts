@@ -18,4 +18,7 @@ export default Joi.object({
     JWT_ALGORITHM: Joi.string().default('HS256'),
     ELASTIC_CLOUD_ID: Joi.string().optional(),
     ELASTIC_API_KEY: Joi.string().optional(),
+    REDIS_HOST: Joi.string().optional(),
+    REDIS_PORT: Joi.number().optional(),
+    REDIS_TTL: Joi.number().optional(),
 })

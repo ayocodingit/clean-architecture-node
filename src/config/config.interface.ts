@@ -22,4 +22,9 @@ export interface Config {
         cloud_id: string
         api_key: string
     }
+    redis: {
+        host: string
+        port: number
+        ttl: number
+    }
 }
