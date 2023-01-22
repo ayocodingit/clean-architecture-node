@@ -1,14 +1,8 @@
-import i18n from 'i18n'
+import lang from 'i18n'
 
-class Lang {
-    public lang: typeof i18n
-    constructor() {
-        i18n.configure({
-            locales: ['en'],
-            directory: __dirname + '/lang',
-        })
-        this.lang = i18n
-    }
-}
+lang.configure({
+    locales: ['en'],
+    directory: __dirname + '/lang',
+})
 
-export default new Lang().lang
+export default lang

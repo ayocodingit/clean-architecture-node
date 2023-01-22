@@ -1,14 +1,11 @@
+import { validate } from '../helpers/validate'
 import configSchema from './config.schema'
 
 export default (env: any) => {
-    const { value, error } = configSchema.validate(env, {
-        cache: true,
-        abortEarly: false,
-        stripUnknown: true,
-    })
+    const { error, value } = validate(configSchema, env)
 
     if (error) {
-        console.error(error.message)
+        console.error(error)
         process.exit(-1)
     }
 
