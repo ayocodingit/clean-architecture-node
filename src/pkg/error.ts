@@ -1,4 +1,4 @@
-class CustomError extends Error {
+export default class extends Error {
     constructor(
         public status: number,
         public message: string,
@@ -7,5 +7,3 @@ class CustomError extends Error {
         super(message)
     }
 }
-
-export default CustomError
