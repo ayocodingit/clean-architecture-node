@@ -9,6 +9,7 @@ const env = configValidate(process.env)
 const config: Config = {
     app: {
         name: env.APP_NAME,
+        env: env.APP_ENV,
         port: {
             http: env.APP_PORT_HTTP,
         },

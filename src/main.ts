@@ -10,7 +10,11 @@ const main = async () => {
     const redis = new Redis(config, logger)
     const http = new Http(logger, config)
 
-    http.Run(config.app.port.http)
+    if (config.app.env !== 'test') {
+        http.Run(config.app.port.http)
+    }
+
+    return http
 }
 
-main()
+export default main()
