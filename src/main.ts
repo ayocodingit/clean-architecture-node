@@ -14,7 +14,9 @@ const main = async () => {
         http.Run(config.app.port.http)
     }
 
-    return http
+    return {
+        http
+    }
 }
 
 export default main()
