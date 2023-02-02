@@ -15,7 +15,7 @@ const main = async () => {
     }
 
     return {
-        http
+        http,
     }
 }
 

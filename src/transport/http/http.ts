@@ -73,7 +73,14 @@ class Http {
                     secretOrPublicKey,
                     options,
                     (err, decoded) => {
-                        if (err) return next(err)
+                        if (err) {
+                            return next(
+                                new Error(
+                                    statusCode.UNAUTHORIZED,
+                                    statusCode[statusCode.UNAUTHORIZED]
+                                )
+                            )
+                        }
                         req['user'] = decoded
                         return next()
                     }
