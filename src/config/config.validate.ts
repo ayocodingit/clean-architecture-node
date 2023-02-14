@@ -2,10 +2,10 @@ import { validate } from '../helpers/validate'
 import configSchema from './config.schema'
 
 export default (env: any) => {
-    const { error, value } = validate(configSchema, env)
+    const { errors, value } = validate(configSchema, env)
 
-    if (error) {
-        console.error(error)
+    if (errors) {
+        console.error(errors)
         process.exit(-1)
     }
 
