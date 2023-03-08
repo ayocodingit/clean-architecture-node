@@ -41,13 +41,26 @@ class Http {
         res: Response,
         next: NextFunction
     ) => {
-        const status = error.status || 500
-        const message = error.message || 'Something went wrong'
+        const resp: Record<string, any> = {}
+        resp.code = error.status || 500
+        resp.error =
+            error.message || statusCode[statusCode.INTERNAL_SERVER_ERROR]
 
-        return res.status(status).json({
-            status,
-            message,
-        })
+        if (error.isObject) resp.error = JSON.parse(resp.error)
+
+        if (resp.code >= statusCode.INTERNAL_SERVER_ERROR) {
+            this.logger.error(resp.error, {
+                env: this.config.app.env,
+            })
+            resp.error = statusCode[statusCode.INTERNAL_SERVER_ERROR]
+        }
+
+        if (resp.code === statusCode.UNPROCESSABLE_ENTITY) {
+            resp.errors = resp.error
+            delete resp.error
+        }
+
+        return res.status(resp.code).json(resp)
     }
 
     private pageHome = () => {
@@ -56,44 +69,6 @@ class Http {
                 app_name: this.config.app.name,
             })
         })
-    }
-
-    public VerifyAuth = (
-        secretOrPublicKey: jwt.Secret,
-        options?: jwt.VerifyOptions
-    ) => {
-        return (req: any, _: Response, next: NextFunction) => {
-            const { authorization } = req.headers
-
-            if (authorization) {
-                const [_, token] = authorization.split('bearer ')
-
-                jwt.verify(
-                    token,
-                    secretOrPublicKey,
-                    options,
-                    (err, decoded) => {
-                        if (err) {
-                            return next(
-                                new Error(
-                                    statusCode.UNAUTHORIZED,
-                                    statusCode[statusCode.UNAUTHORIZED]
-                                )
-                            )
-                        }
-                        req['user'] = decoded
-                        return next()
-                    }
-                )
-            }
-
-            return next(
-                new Error(
-                    statusCode.UNAUTHORIZED,
-                    statusCode[statusCode.UNAUTHORIZED]
-                )
-            )
-        }
     }
 
     public Run(port: number) {
