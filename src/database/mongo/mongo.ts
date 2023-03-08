@@ -6,7 +6,7 @@ class Mongo {
     public static async connect(logger: winston.Logger, { db }: Config) {
         mongoose.set('strictQuery', false)
         return mongoose
-            .connect(`mongodb://${db.host}:${db.port}/${db.database}`, {
+            .connect(`mongodb://${db.host}:${db.port}/${db.name}`, {
                 authSource: db.auth_source,
                 pass: db.password,
                 user: db.username,
