@@ -12,7 +12,7 @@ export default Joi.object({
     DB_PORT: Joi.number().required(),
     DB_USERNAME: Joi.string().required(),
     DB_PASSWORD: Joi.string().required(),
-    DB_DATABASE: Joi.string().required(),
+    DB_NAME: Joi.string().required(),
     DB_AUTH_SOURCE: Joi.string().optional(),
     JWT_ACCESS_SECRET: Joi.string().required(),
     JWT_ALGORITHM: Joi.string().default('HS256'),

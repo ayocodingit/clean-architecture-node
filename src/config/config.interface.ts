@@ -12,7 +12,7 @@ export interface Config {
         port: number
         username: string
         password: string
-        database: string
+        name: string
         auth_source: string
     }
     jwt: {
