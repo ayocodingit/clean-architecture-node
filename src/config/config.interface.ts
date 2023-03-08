@@ -19,10 +19,6 @@ export interface Config {
         access_key: string
         algorithm: string
     }
-    elastic: {
-        cloud_id: string
-        api_key: string
-    }
     redis: {
         host: string
         port: number

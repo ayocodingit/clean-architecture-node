@@ -27,10 +27,6 @@ const config: Config = {
         access_key: env.JWT_ACCESS_SECRET,
         algorithm: env.JWT_ALGORITHM,
     },
-    elastic: {
-        cloud_id: env.ELASTIC_CLOUD_ID,
-        api_key: env.ELASTIC_API_KEY,
-    },
     redis: {
         host: env.REDIS_HOST,
         port: env.REDIS_PORT,
