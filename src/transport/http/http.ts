@@ -6,11 +6,10 @@ import bodyParser from 'body-parser'
 import helmet from 'helmet'
 import compression from 'compression'
 import { Config } from '../../config/config.interface'
-import jwt from 'jsonwebtoken'
 import Error from '../../pkg/error'
 
 class Http {
-    public app: Express
+    private app: Express
 
     constructor(private logger: winston.Logger, private config: Config) {
         this.app = express()
@@ -61,6 +60,14 @@ class Http {
         }
 
         return res.status(resp.code).json(resp)
+    }
+
+    public Router() {
+        return express.Router()
+    }
+
+    public SetRouter(prefix: string, ...router: express.Router[]) {
+        this.app.use(prefix, router)
     }
 
     private pageHome = () => {
