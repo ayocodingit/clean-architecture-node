@@ -10,6 +10,9 @@ const main = async () => {
     const redis = new Redis(config, logger)
     const http = new Http(logger, config)
 
+    // Load App Internal
+
+    // Run Transport
     http.Run(config.app.port.http)
 
     return {
