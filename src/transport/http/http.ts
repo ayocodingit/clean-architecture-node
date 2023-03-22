@@ -81,11 +81,13 @@ class Http {
     public Run(port: number) {
         this.pageNotFound()
         this.app.use(this.onError)
-        this.app.listen(port, () => {
-            this.logger.info(
-                `Server http is running at http://localhost:${port}`
-            )
-        })
+        if (this.config.app.env !== 'test') {
+            this.app.listen(port, () => {
+                this.logger.info(
+                    `Server http is running at http://localhost:${port}`
+                )
+            })
+        }
     }
 }
 
