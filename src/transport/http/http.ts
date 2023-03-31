@@ -41,15 +41,17 @@ class Http {
         next: NextFunction
     ) => {
         const resp: Record<string, any> = {}
-        resp.code = error.status || 500
+        resp.code = Number(error.status) || 500
         resp.error =
             error.message || statusCode[statusCode.INTERNAL_SERVER_ERROR]
 
         if (error.isObject) resp.error = JSON.parse(resp.error)
 
         if (resp.code >= statusCode.INTERNAL_SERVER_ERROR) {
-            this.logger.error(resp.error, {
-                env: this.config.app.env,
+            const code = statusCode[resp.code] as string
+            this.logger.error(code, {
+                error,
+                additional_info: this.AdditionalInfo(req, resp.code),
             })
             resp.error = statusCode[statusCode.INTERNAL_SERVER_ERROR]
         }
@@ -60,6 +62,20 @@ class Http {
         }
 
         return res.status(resp.code).json(resp)
+    }
+
+    public AdditionalInfo(req: Request, statusCode: number) {
+        return {
+            env: this.config.app.env,
+            http_uri: req.originalUrl,
+            http_host: req.protocol + '://' + req.headers.host,
+            http_method: req.method,
+            http_scheme: req.protocol,
+            remote_addr: req.httpVersion,
+            user_agent: req.headers['user-agent'],
+            tz: new Date(),
+            code: statusCode,
+        }
     }
 
     public Router() {
