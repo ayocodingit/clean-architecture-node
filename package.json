@@ -8,6 +8,7 @@
         "build": "rimraf ./build && tsc",
         "start": "node build/src/main.js",
         "lint:fix": "npx prettier --write .",
+        "cron:run": "node build/src/cron/$npm_config_name.cron",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "keywords": [
@@ -43,6 +44,7 @@
         "i18n": "^0.15.1",
         "joi": "^17.7.0",
         "jsonwebtoken": "^9.0.0",
+        "luxon": "^3.3.0",
         "mongoose": "^6.8.3",
         "redis": "^4.5.1",
         "winston": "^3.8.2"
