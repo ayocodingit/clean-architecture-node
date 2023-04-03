@@ -7,9 +7,10 @@
         "start:dev": "npx nodemon",
         "build": "rimraf ./build && tsc",
         "start": "node build/src/main.js",
+        "lint": "npx prettier --check .",
         "lint:fix": "npx prettier --write .",
         "cron:run": "node build/src/cron/$npm_config_name.cron",
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "npx jest"
     },
     "keywords": [
         "clean-architecture",
@@ -25,11 +26,14 @@
         "@types/cors": "^2.8.13",
         "@types/express": "^4.17.15",
         "@types/i18n": "^0.13.6",
+        "@types/jest": "^29.5.0",
         "@types/jsonwebtoken": "^9.0.1",
         "@types/node": "^18.11.18",
+        "jest": "^29.5.0",
         "nodemon": "^2.0.20",
         "prettier": "2.8.2",
         "rimraf": "^3.0.2",
+        "ts-jest": "^29.1.0",
         "ts-node": "^10.9.1",
         "typescript": "^4.9.4"
     },
