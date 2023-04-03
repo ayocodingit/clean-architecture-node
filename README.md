@@ -1,6 +1,7 @@
 # Clean Architecture TS
 
 <a href="https://codeclimate.com/github/ayocodingit/clean-architecture-ts/maintainability"><img src="https://api.codeclimate.com/v1/badges/386d765f6f1aa1b4a4c8/maintainability" /></a>
+<a href="https://codeclimate.com/github/ayocodingit/clean-architecture-ts/test_coverage"><img src="https://api.codeclimate.com/v1/badges/386d765f6f1aa1b4a4c8/test_coverage" /></a>
 
 Reference for implementation clean architecture:
 
