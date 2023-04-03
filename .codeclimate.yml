@@ -1,0 +1,12 @@
+version: '2'
+checks:
+    identical-code:
+        enabled: false
+        config:
+            threshold: #language-specific defaults. overrides affect all languages.
+    similar-code:
+        enabled: false
+        config:
+            threshold: #language-specific defaults. overrides affect all languages.
+exclude_patterns:
+    - '*.test.ts'

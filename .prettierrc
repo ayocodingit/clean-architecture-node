@@ -1,4 +1,10 @@
-trailingComma: 'es5'
-tabWidth: 4
-semi: false
-singleQuote: true
+{
+    "trailingComma": "es5",
+    "semi": false,
+    "singleQuote": true,
+    "useTabs": false,
+    "tabWidth": 4,
+    "quoteProps": "consistent",
+    "bracketSpacing": true,
+    "arrowParens": "always"
+}
