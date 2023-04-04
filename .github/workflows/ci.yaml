@@ -3,33 +3,33 @@
 name: CI
 
 on:
-    pull_request:
-        branches: [main]
+  pull_request:
+    branches: [main]
 
-    push:
-        branches: [main]
+  push:
+    branches: [main]
 
 jobs:
-    test:
-        runs-on: ubuntu-latest
-        steps:
-            - name: Checkout
-              uses: actions/checkout@v3
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
 
-            - name: Set up Node
-              uses: actions/setup-node@master
-              with:
-                  node-version: '16'
+      - name: Set up Node
+        uses: actions/setup-node@master
+        with:
+          node-version: "14"
 
-            - name: Run Npm Install
-              run: npm install
+      - name: Run Npm Install
+        run: npm install
 
-            - name: Run Testing
-              run: npm run test
+      - name: Run Testing
+        run: npm run test
 
-            - name: Set Up Codeclimate and Send Report Codeclimate
-              uses: paambaati/codeclimate-action@v2.7.5
-              env:
-                  CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORT_ID }}
-              with:
-                  coverageLocations: coverage/lcov.info:lcov
+      - name: Set Up Codeclimate and Send Report Codeclimate
+        uses: paambaati/codeclimate-action@v2.7.5
+        env:
+          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORT_ID }}
+        with:
+          coverageLocations: coverage/lcov.info:lcov
