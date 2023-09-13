@@ -2,7 +2,7 @@ import winston, { createLogger, format, transports } from 'winston'
 import { Config } from '../config/config.interface'
 
 class Logger {
-    public logger: winston.Logger
+    private logger: winston.Logger
 
     constructor(config: Config) {
         this.logger = createLogger({
@@ -10,6 +10,14 @@ class Logger {
             format: format.combine(format.json()),
             transports: [new transports.Console()],
         })
+    }
+
+    public Info(message: string, ...meta: any[]) {
+        this.logger.info(message, ...meta)
+    }
+
+    public Error(message: string, ...meta: any[]) {
+        this.logger.error(message, ...meta)
     }
 }
 

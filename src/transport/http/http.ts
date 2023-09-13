@@ -1,5 +1,4 @@
 import express, { Express, NextFunction, Request, Response } from 'express'
-import winston from 'winston'
 import statusCode from '../../pkg/statusCode'
 import cors from 'cors'
 import bodyParser from 'body-parser'
@@ -7,11 +6,12 @@ import helmet from 'helmet'
 import compression from 'compression'
 import { Config } from '../../config/config.interface'
 import Error from '../../pkg/error'
+import Logger from '../../pkg/logger'
 
 class Http {
     private app: Express
 
-    constructor(private logger: winston.Logger, private config: Config) {
+    constructor(private logger: Logger, private config: Config) {
         this.app = express()
         this.plugins()
         this.pageHome()
@@ -49,7 +49,7 @@ class Http {
 
         if (resp.code >= statusCode.INTERNAL_SERVER_ERROR) {
             const code = statusCode[resp.code] as string
-            this.logger.error(code, {
+            this.logger.Error(code, {
                 error,
                 additional_info: this.AdditionalInfo(req, resp.code),
             })
@@ -87,7 +87,10 @@ class Http {
     }
 
     private pageHome = () => {
-        this.app.get('/', (_: Request, res: Response) => {
+        this.app.get('/', (req: Request, res: Response) => {
+            this.logger.Info('OK', {
+                additional_info: this.AdditionalInfo(req, res.statusCode),
+            })
             res.status(statusCode.OK).json({
                 app_name: this.config.app.name,
             })
@@ -99,7 +102,7 @@ class Http {
         this.app.use(this.onError)
         if (this.config.app.env !== 'test') {
             this.app.listen(port, () => {
-                this.logger.info(
+                this.logger.Info(
                     `Server http is running at http://localhost:${port}`
                 )
             })

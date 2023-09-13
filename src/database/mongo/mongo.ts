@@ -1,9 +1,9 @@
-import mongoose from 'mongoose'
-import winston from 'winston'
+import mongoose, { Schema } from 'mongoose'
 import { Config } from '../../config/config.interface'
+import Logger from '../../pkg/logger'
 
 class Mongo {
-    public static async connect(logger: winston.Logger, { db }: Config) {
+    public static async Connect(logger: Logger, { db }: Config) {
         mongoose.set('strictQuery', false)
         return mongoose
             .connect(`mongodb://${db.host}:${db.port}/${db.name}`, {
@@ -12,18 +12,28 @@ class Mongo {
                 user: db.username,
             })
             .then(() => {
-                logger.info('Connection to database established')
+                logger.Info('Connection to database established')
             })
             .catch((e) => {
-                logger.error(e.message)
+                logger.Error(e.message)
                 process.exit(-1)
             })
     }
 
-    public static switch(database: string) {
-        return mongoose.connection.useDb(database, {
-            useCache: true,
-        })
+    public static ModelWithSwitchDb(
+        database: string,
+        collection: string,
+        schema: Schema
+    ) {
+        return mongoose.connection
+            .useDb(database, {
+                useCache: true,
+            })
+            .model(collection, schema)
+    }
+
+    public static Model(collection: string, schema: Schema) {
+        return mongoose.model(collection, schema)
     }
 }
 

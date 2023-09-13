@@ -2,6 +2,7 @@ export interface PropPaginate {
     page: number
     offset: number
     limit: number
+    [key: string]: any
 }
 
 export const Paginate = (query: Record<string, any>): PropPaginate => {
@@ -10,6 +11,7 @@ export const Paginate = (query: Record<string, any>): PropPaginate => {
     const offset = limit * (page - 1)
 
     return {
+        ...query,
         page,
         offset,
         limit,
