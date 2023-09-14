@@ -4,12 +4,11 @@ import Logger from '../../pkg/logger'
 import postSchema from '../../database/mongo/schemas/post.schema'
 import Usecase from './usecase/usecase'
 import Handler from './delivery/http/handler'
+import { VerifyAuth } from '../../transport/http/middleware/verifyAuth'
+import { Config } from '../../config/config.interface'
 
 class Posts {
-    constructor(
-        private logger: Logger,
-        private http: Http,
-    ) {
+    constructor(private logger: Logger, private http: Http, private config: Config) {
         const repository = new Repository(logger, postSchema)
         const usecase = new Usecase(logger, repository)
         this.loadHttp(usecase)
@@ -29,8 +28,14 @@ class Posts {
         this.http.SetRouter('/v1/public/posts/', Router)
     }
 
-    public httpWithAuth(handler: Handler) {
-        
+    public httpPrivate(handler: Handler) {
+        const Router = this.http.Router()
+
+        const auth = VerifyAuth(this.config.jwt.access_key)
+
+        Router.post('/', handler.Store())
+
+        this.http.SetRouter('/v1/posts/', auth,  Router)
     }
 }
 

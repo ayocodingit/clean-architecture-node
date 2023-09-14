@@ -18,7 +18,7 @@ class Handler {
         return async (req: Request, res: Response, next: NextFunction) => {
             try {
                 const request = Paginate(req.query)
-                const {data, count} = await this.usecase.Fetch(request)
+                const { data, count } = await this.usecase.Fetch(request)
                 this.logger.Info(statusCode[statusCode.OK], {
                     additional_info: this.http.AdditionalInfo(
                         req,
@@ -36,9 +36,7 @@ class Handler {
     public Store() {
         return async (req: any, res: Response, next: NextFunction) => {
             try {
-                const body = {
-                    ...ValidateFormRequest(RequestSchema, req.body),
-                }
+                const body = ValidateFormRequest(RequestSchema, req.body)
                 const result = await this.usecase.Store(body)
                 this.logger.Info(statusCode[statusCode.CREATED], {
                     additional_info: this.http.AdditionalInfo(

@@ -41,27 +41,26 @@ class Http {
         next: NextFunction
     ) => {
         const resp: Record<string, any> = {}
-        resp.code = Number(error.status) || 500
+        const code = Number(error.status) || 500
         resp.error =
             error.message || statusCode[statusCode.INTERNAL_SERVER_ERROR]
 
         if (error.isObject) resp.error = JSON.parse(resp.error)
 
-        if (resp.code >= statusCode.INTERNAL_SERVER_ERROR) {
-            const code = statusCode[resp.code] as string
-            this.logger.Error(code, {
+        if (code >= statusCode.INTERNAL_SERVER_ERROR) {
+            this.logger.Error(statusCode[code] as string, {
                 error,
                 additional_info: this.AdditionalInfo(req, resp.code),
             })
             resp.error = statusCode[statusCode.INTERNAL_SERVER_ERROR]
         }
 
-        if (resp.code === statusCode.UNPROCESSABLE_ENTITY) {
+        if (code === statusCode.UNPROCESSABLE_ENTITY) {
             resp.errors = resp.error
             delete resp.error
         }
 
-        return res.status(resp.code).json(resp)
+        return res.status(code).json(resp)
     }
 
     public AdditionalInfo(req: Request, statusCode: number) {

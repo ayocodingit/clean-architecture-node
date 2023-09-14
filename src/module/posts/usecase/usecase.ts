@@ -9,7 +9,8 @@ class Usecase {
         const data = await this.repository.Fetch(request)
         const count = await this.repository.Count()
         return {
-            data, count
+            data,
+            count,
         }
     }
 

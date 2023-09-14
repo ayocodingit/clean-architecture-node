@@ -1,6 +1,6 @@
 import config from './config/config'
 import Mongo from './database/mongo/mongo'
-import Posts from './internal/posts/posts'
+import Posts from './module/posts/posts'
 import Logger from './pkg/logger'
 import Http from './transport/http/http'
 
@@ -9,10 +9,11 @@ const main = async () => {
     await Mongo.Connect(logger, config)
     const http = new Http(logger, config)
 
-    // Load App Internal
-    new Posts(logger, http)
+    // Start Load Module
+    new Posts(logger, http, config)
 
-    // Run Transport
+    // End Load Module
+
     http.Run(config.app.port.http)
 
     return {
