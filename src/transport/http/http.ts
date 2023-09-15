@@ -47,11 +47,15 @@ class Http {
 
         if (error.isObject) resp.error = JSON.parse(resp.error)
 
-        if (code >= statusCode.INTERNAL_SERVER_ERROR) {
-            this.logger.Error(statusCode[code] as string, {
-                error,
-                additional_info: this.AdditionalInfo(req, resp.code),
-            })
+        this.logger.Error(statusCode[code] as string, {
+            error,
+            additional_info: this.AdditionalInfo(req, resp.code),
+        })
+
+        if (
+            code >= statusCode.INTERNAL_SERVER_ERROR &&
+            this.config.app.env === 'production'
+        ) {
             resp.error = statusCode[statusCode.INTERNAL_SERVER_ERROR]
         }
 

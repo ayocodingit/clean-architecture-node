@@ -8,7 +8,11 @@ import { VerifyAuth } from '../../transport/http/middleware/verifyAuth'
 import { Config } from '../../config/config.interface'
 
 class Posts {
-    constructor(private logger: Logger, private http: Http, private config: Config) {
+    constructor(
+        private logger: Logger,
+        private http: Http,
+        private config: Config
+    ) {
         const repository = new Repository(logger, postSchema)
         const usecase = new Usecase(logger, repository)
         this.loadHttp(usecase)
@@ -35,7 +39,7 @@ class Posts {
 
         Router.post('/', handler.Store())
 
-        this.http.SetRouter('/v1/posts/', auth,  Router)
+        this.http.SetRouter('/v1/posts/', auth, Router)
     }
 }
 
