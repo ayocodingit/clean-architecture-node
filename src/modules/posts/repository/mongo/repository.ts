@@ -1,12 +1,12 @@
 import Logger from '../../../../pkg/logger'
 import postSchema from '../../../../database/mongo/schemas/post.schema'
-import { PropPaginate } from '../../../../helpers/paginate'
+import { RequestParams } from '../../../../helpers/requestParams'
 import { RequestBody } from '../../entity/interface'
 
 class Repository {
     constructor(private logger: Logger, private post: typeof postSchema) {}
 
-    public async Fetch(request: PropPaginate) {
+    public async Fetch(request: RequestParams) {
         return this.post.find().limit(request.limit).skip(request.offset)
     }
 

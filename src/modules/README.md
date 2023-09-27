@@ -1,4 +1,4 @@
-folder for Internals app
+folder for Modules app
 
 ## Folder Structure
 

@@ -6,12 +6,14 @@ import Usecase from './usecase/usecase'
 import Handler from './delivery/http/handler'
 import { VerifyAuth } from '../../transport/http/middleware/verifyAuth'
 import { Config } from '../../config/config.interface'
+import Jwt from '../../pkg/jwt'
 
 class Posts {
     constructor(
         private logger: Logger,
         private http: Http,
-        private config: Config
+        private config: Config,
+        private jwt: Jwt
     ) {
         const repository = new Repository(logger, postSchema)
         const usecase = new Usecase(logger, repository)
@@ -21,13 +23,13 @@ class Posts {
     private loadHttp(usecase: Usecase) {
         const handler = new Handler(this.logger, this.http, usecase)
         this.httpPublic(handler)
+        this.httpPrivate(handler)
     }
 
     private httpPublic(handler: Handler) {
         const Router = this.http.Router()
 
         Router.get('/', handler.Fetch())
-        Router.post('/', handler.Store())
 
         this.http.SetRouter('/v1/public/posts/', Router)
     }
@@ -35,7 +37,7 @@ class Posts {
     public httpPrivate(handler: Handler) {
         const Router = this.http.Router()
 
-        const auth = VerifyAuth(this.config.jwt.access_key)
+        const auth = VerifyAuth(this.jwt)
 
         Router.post('/', handler.Store())
 

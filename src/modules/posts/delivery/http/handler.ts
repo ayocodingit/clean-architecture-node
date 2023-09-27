@@ -3,7 +3,7 @@ import Logger from '../../../../pkg/logger'
 import Usecase from '../../usecase/usecase'
 import { NextFunction, Request, Response } from 'express'
 import statusCode from '../../../../pkg/statusCode'
-import { Meta, Paginate } from '../../../../helpers/paginate'
+import { GetMeta, GetRequestParams } from '../../../../helpers/requestParams'
 import { ValidateFormRequest } from '../../../../helpers/validate'
 import { RequestSchema } from '../../entity/schema'
 
@@ -17,7 +17,7 @@ class Handler {
     public Fetch() {
         return async (req: Request, res: Response, next: NextFunction) => {
             try {
-                const request = Paginate(req.query)
+                const request = GetRequestParams(req.query)
                 const { data, count } = await this.usecase.Fetch(request)
                 this.logger.Info(statusCode[statusCode.OK], {
                     additional_info: this.http.AdditionalInfo(
@@ -26,7 +26,7 @@ class Handler {
                     ),
                 })
 
-                return res.json({ data, meta: Meta(request, count) })
+                return res.json({ data, meta: GetMeta(request, count) })
             } catch (error) {
                 return next(error)
             }

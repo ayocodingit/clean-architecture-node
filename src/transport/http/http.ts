@@ -26,7 +26,7 @@ class Http {
     }
 
     private pageNotFound = () => {
-        this.app.get('*', (_: Request, res: Response) => {
+        this.app.all('*', (_: Request, res: Response) => {
             throw new Error(
                 statusCode.NOT_FOUND,
                 statusCode[statusCode.NOT_FOUND]
