@@ -29,13 +29,13 @@ export const GetRequestParams = (query: Record<string, any>): RequestParams => {
     }
 }
 
-export const GetMeta = (req: RequestParams, count: number) => {
+export const GetMeta = (request: RequestParams, count: number) => {
     return {
-        page: req.page,
-        last_page: Math.ceil(count / req.limit),
-        limit: req.limit,
-        from: req.offset + 1,
-        to: req.page * req.limit,
+        page: request.page,
+        last_page: Math.ceil(count / request.limit),
+        limit: request.limit,
+        from: request.offset + 1,
+        to: request.page * request.limit,
         total: count,
     }
 }
