@@ -1,20 +1,12 @@
-import { Config } from '../config/config.interface'
 import jwt from 'jsonwebtoken'
 import statusCode from './statusCode'
 import error from './error'
 
 class Jwt {
-    private secretOrPublicKey: jwt.Secret
+    constructor(private secretOrPublicKey: jwt.Secret) { }
 
-    constructor(private config: Config) {
-        const { access_key } = this.config.jwt
-        this.secretOrPublicKey = access_key
-    }
-
-    public Sign(payload: object, expiresIn: string) {
-        return jwt.sign(payload, this.secretOrPublicKey, {
-            expiresIn,
-        })
+    public Sign(payload: object, options?: jwt.SignOptions) {
+        return jwt.sign(payload, this.secretOrPublicKey, options)
     }
 
     public Verify(token: string) {
