@@ -9,7 +9,7 @@ export interface RequestParams {
 }
 
 export const GetRequestParams = (query: Record<string, any>): RequestParams => {
-    const limit = Number(query.limit) || 100
+    const limit = Number(query.limit) || 10
     const page = Number(query.page) || 1
     const offset = limit * (page - 1)
     let { q, sort_order, order_by } = query

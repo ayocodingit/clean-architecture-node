@@ -1,24 +1,34 @@
-import { Schema } from 'mongoose'
-import Mongo from '../mongo'
+import { Connection, Schema } from 'mongoose'
+import { Model } from '../interface'
 
-const schema = new Schema(
-    {
-        title: {
-            type: String,
-            required: true,
+const schema = (connection: Connection) => {
+    const schema = new Schema(
+        {
+            title: {
+                type: String,
+                required: true,
+            },
+            description: {
+                type: String,
+                required: true,
+            },
         },
-        description: {
-            type: String,
-            required: true,
-        },
-    },
-    {
-        timestamps: {
-            createdAt: 'created_at',
-            updatedAt: 'updated_at',
-        },
-        versionKey: false,
-    }
-)
+        {
+            timestamps: {
+                createdAt: 'created_at',
+                updatedAt: 'updated_at',
+            },
+            versionKey: false,
+            toJSON: {
+                virtuals: true,
+            },
+            toObject: {
+                virtuals: true,
+            },
+        }
+    )
 
-export default Mongo.Model('posts', schema)
+    return connection.model<Model>('posts', schema)
+}
+
+export default schema

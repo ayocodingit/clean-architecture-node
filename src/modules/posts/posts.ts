@@ -1,25 +1,28 @@
 import Http from '../../transport/http/http'
-// import Repository from './repository/mongo/repository'
 import Logger from '../../pkg/logger'
-// import postSchema from '../../database/mongo/schemas/post.schema'
 import Usecase from './usecase/usecase'
 import Handler from './delivery/http/handler'
 import { VerifyAuth } from '../../transport/http/middleware/verifyAuth'
 import { Config } from '../../config/config.interface'
 import Jwt from '../../pkg/jwt'
-import Post from '../../database/sequelize/schemas/post.schema'
+import { Connection } from '../../database/sequelize/interface'
 import Repository from './repository/mysql/repository'
-import { Sequelize } from 'sequelize'
+import Sequelize from '../../database/sequelize/sequelize'
+// import { Connection } from '../../database/mongo/interface'
+// import Repository from './repository/mongo/repository'
+// import Mongo from '../../database/mongo/mongo'
 
 class Posts {
     constructor(
         private logger: Logger,
         private http: Http,
         private config: Config,
-        sequelize: Sequelize
+        connection: Connection
     ) {
-        // const repository = new Repository(logger, postSchema)
-        const repository = new Repository(logger, Post(sequelize))
+        // const schema = Mongo.Schema(connection)
+        // const repository = new Repository(logger, schema)
+        const schema = Sequelize.Schema(connection)
+        const repository = new Repository(logger, schema)
         const usecase = new Usecase(logger, repository)
         this.loadHttp(usecase)
     }

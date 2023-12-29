@@ -1,17 +1,17 @@
 import Logger from '../../../../pkg/logger'
-import postSchema from '../../../../database/mongo/schemas/post.schema'
 import { RequestParams } from '../../../../helpers/requestParams'
 import { RequestBody } from '../../entity/interface'
+import { Schema } from '../../../../database/mongo/interface'
 
 class Repository {
-    constructor(private logger: Logger, private post: typeof postSchema) {}
+    constructor(private logger: Logger, private schema: Schema) {}
 
     public async Fetch(request: RequestParams) {
-        const data = await this.post
+        const data = await this.schema.post
             .find()
             .limit(request.limit)
             .skip(request.offset)
-        const count = await this.post.count()
+        const count = await this.schema.post.count()
         return {
             data,
             count,
@@ -19,7 +19,7 @@ class Repository {
     }
 
     public async Store(body: RequestBody) {
-        const newPost = new this.post({
+        const newPost = new this.schema.post({
             title: body.title,
             description: body.description,
         })

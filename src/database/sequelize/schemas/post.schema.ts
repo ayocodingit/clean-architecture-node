@@ -1,7 +1,8 @@
-import { DataTypes, Sequelize } from 'sequelize'
+import { DataTypes } from 'sequelize'
+import { Connection } from '../interface'
 
-const schema = (sequelize: Sequelize) => {
-    return sequelize.define(
+const schema = (connection: Connection) => {
+    return connection.define(
         'posts',
         {
             id: {

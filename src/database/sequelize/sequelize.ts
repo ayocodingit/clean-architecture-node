@@ -1,32 +1,47 @@
 import { Config } from '../../config/config.interface'
 import Logger from '../../pkg/logger'
-import {
-    Sequelize as Client,
-    Dialect,
-    ModelStatic,
-    Model as model,
-} from 'sequelize'
+import { Sequelize as createConnection, Dialect } from 'sequelize'
+import Post from './schemas/post.schema'
+import { Connection } from './interface'
 
-export class Sequalize {
+class Sequalize {
     public static async Connect(config: Config, logger: Logger) {
-        const { name, username, password, host, connection } = config.db
+        const {
+            name,
+            username,
+            password,
+            host,
+            connection: dialect,
+        } = config.db
 
-        const sequelize = new Client(name, username, password, {
+        const connection = new createConnection(name, username, password, {
             host: host,
-            dialect: connection as Dialect,
-            logging: (msg) => logger.Debug(msg),
+            dialect: dialect as Dialect,
+            logging: false,
         })
-        sequelize
-            .authenticate()
-            .then(() => {
-                logger.Info('Connection has been established successfully.')
-            })
-            .catch((error: any) => {
-                logger.Error('Unable to connect to the database:', error)
-                process.exit(-1)
-            })
-        return sequelize
+
+        try {
+            await connection.authenticate()
+            logger.Info('Connection to database established')
+        } catch (error) {
+            logger.Error('Sequelize connection error:', error)
+            process.exit(-1)
+        }
+
+        return connection
+    }
+
+    public static Schema = (connection: Connection) => {
+        // load all schema on folder schemas
+        const post = Post(connection)
+
+        // setup relation for eager loader in here
+        // example: User.hasOne(Profile)
+        return {
+            post,
+            // Add other models if needed
+        }
     }
 }
 
-export type Model = ModelStatic<model<any, any>>
+export default Sequalize
