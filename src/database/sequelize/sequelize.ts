@@ -12,17 +12,24 @@ class Sequalize {
             password,
             host,
             connection: dialect,
+            pool,
         } = config.db
 
         const connection = new createConnection(name, username, password, {
             host: host,
             dialect: dialect as Dialect,
             logging: false,
+            pool: {
+                min: pool.min,
+                max: pool.max,
+                acquire: pool.acquire,
+                idle: pool.idle,
+            },
         })
 
         try {
             await connection.authenticate()
-            logger.Info('Connection to database established')
+            logger.Info('Sequelize connection to database established')
         } catch (error) {
             logger.Error('Sequelize connection error:', error)
             process.exit(-1)

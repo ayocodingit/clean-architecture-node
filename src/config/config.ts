@@ -23,6 +23,13 @@ const config: Config = {
         password: env.DB_PASSWORD,
         name: env.DB_NAME,
         auth_source: env.DB_AUTH_SOURCE,
+        pool: {
+            min: env.DB_POOL_MIN,
+            max: env.DB_POOL_MAX,
+            acquire: env.DB_POOL_ACQUIRE,
+            idle: env.DB_POOL_IDLE,
+        },
+        keep_alive: env.DB_KEEP_ALIVE,
     },
     jwt: {
         access_key: env.JWT_ACCESS_SECRET,

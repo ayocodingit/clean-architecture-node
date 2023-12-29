@@ -15,6 +15,13 @@ export interface Config {
         password: string
         name: string
         auth_source: string
+        pool: {
+            min: number
+            max: number
+            acquire: number
+            idle: number
+        }
+        keep_alive: boolean
     }
     jwt: {
         access_key: string
