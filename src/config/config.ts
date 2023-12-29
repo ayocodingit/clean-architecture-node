@@ -16,6 +16,7 @@ const config: Config = {
         log: env.APP_LOG,
     },
     db: {
+        connection: env.DB_CONNECTION,
         host: env.DB_HOST,
         port: env.DB_PORT,
         username: env.DB_USERNAME,

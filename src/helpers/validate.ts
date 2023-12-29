@@ -1,8 +1,8 @@
 import Joi from 'joi'
-import mongoose from 'mongoose'
 import error from '../pkg/error'
 import statusCode from '../pkg/statusCode'
 import { Translate } from './translate'
+import { isValidObjectId } from './mongoose'
 
 const getValidationErrors = (validationErrors: Joi.ValidationErrorItem[]) => {
     const errors: Record<string, string> = {}
@@ -66,14 +66,10 @@ export const ValidateParams = (schema: Joi.Schema, values: any) => {
 }
 
 export const ValidateObjectId = (id: string, attribute: string) => {
-    const isValid =
-        mongoose.Types.ObjectId.isValid(id) &&
-        String(new mongoose.Types.ObjectId(id)) === id
-
-    if (!isValid) {
+    if (!isValidObjectId(id)) {
         throw new error(
             statusCode.BAD_REQUEST,
-            Translate('objectID', { attribute })
+            Translate('object_id', { attribute })
         )
     }
 

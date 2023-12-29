@@ -6,10 +6,12 @@ import helmet from 'helmet'
 import compression from 'compression'
 import { Config } from '../../config/config.interface'
 import Error from '../../pkg/error'
+import multer from 'multer'
 import Logger from '../../pkg/logger'
 
 class Http {
     private app: Express
+    public dest: string = '.'
 
     constructor(private logger: Logger, private config: Config) {
         this.app = express()
@@ -67,18 +69,25 @@ class Http {
         return res.status(code).json(resp)
     }
 
-    public AdditionalInfo(req: Request, statusCode: number) {
+    public AdditionalInfo(req: any, statusCode: number) {
         return {
             env: this.config.app.env,
             http_uri: req.originalUrl,
-            http_host: req.protocol + '://' + req.headers.host,
+            http_host: this.GetDomain(req),
             http_method: req.method,
             http_scheme: req.protocol,
             remote_addr: req.httpVersion,
             user_agent: req.headers['user-agent'],
             tz: new Date(),
             code: statusCode,
+            user: req.user || {},
         }
+    }
+
+    public GetDomain(req: Request) {
+        let protocol = req.protocol
+        if (this.config.app.env !== 'local') protocol = 'https'
+        return protocol + '://' + req.headers.host
     }
 
     public Router() {
@@ -98,6 +107,11 @@ class Http {
                 app_name: this.config.app.name,
             })
         })
+    }
+
+    public Upload(fieldName: string) {
+        const upload = multer({ dest: this.dest })
+        return upload.single(fieldName)
     }
 
     public Run(port: number) {

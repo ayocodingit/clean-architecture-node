@@ -18,12 +18,16 @@ export const VerifyAuth = (jwt: Jwt) => {
 
         const [_, token] = authorization.split('Bearer ')
 
-        try {
-            const decode = jwt.Verify(token)
-            req['user'] = decode
-            return next()
-        } catch (err) {
-            return next(err)
+        const decode = jwt.Verify(token)
+        if (!decode) {
+            return next(
+                new Error(
+                    statusCode.UNAUTHORIZED,
+                    statusCode[statusCode.UNAUTHORIZED]
+                )
+            )
         }
+        req['user'] = decode
+        return next()
     }
 }

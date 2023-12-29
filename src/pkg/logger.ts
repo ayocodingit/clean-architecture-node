@@ -19,6 +19,10 @@ class Logger {
     public Error(message: string, ...meta: any[]) {
         this.logger.error(message, ...meta)
     }
+
+    public Debug(message: string, ...meta: any[]) {
+        this.logger.debug(message, ...meta)
+    }
 }
 
 export default Logger

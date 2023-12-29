@@ -1,29 +1,28 @@
 import Logger from '../../../../pkg/logger'
-import postSchema from '../../../../database/mongo/schemas/post.schema'
 import { RequestParams } from '../../../../helpers/requestParams'
 import { RequestBody } from '../../entity/interface'
+import { Model } from '../../../../database/sequelize/sequelize'
 
 class Repository {
-    constructor(private logger: Logger, private post: typeof postSchema) {}
+    constructor(private logger: Logger, private post: Model) {}
 
     public async Fetch(request: RequestParams) {
-        const data = await this.post
-            .find()
-            .limit(request.limit)
-            .skip(request.offset)
-        const count = await this.post.count()
+        const { count, rows } = await this.post.findAndCountAll({
+            limit: request.limit,
+            offset: request.offset,
+        })
+
         return {
-            data,
+            data: rows,
             count,
         }
     }
 
     public async Store(body: RequestBody) {
-        const newPost = new this.post({
+        return this.post.create({
             title: body.title,
             description: body.description,
         })
-        return newPost.save()
     }
 }
 
