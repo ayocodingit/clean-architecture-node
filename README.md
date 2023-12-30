@@ -2,7 +2,7 @@
 
 ![Node.js Logo](https://nodejs.org/static/images/logo.svg)
 
-This boilerplate provides a solid foundation for Node.js applications using Clean Architecture principles. It incorporates a tech stack including Mongoose, Sequelize, TypeScript, Docker, and the default HTTP framework Express.
+This boilerplate provides a foundation for Node.js applications using Clean Architecture principles. It utilizes a tech stack including Mongoose, Sequelize, TypeScript, and Docker. The default HTTP framework is Express.
 
 [![GitHub Repository](https://img.shields.io/badge/GitHub-Repository-blue?logo=github)](https://github.com/ayocodingit/boilerplate-clean-architecture)
 
@@ -44,15 +44,21 @@ The project follows the principles of Clean Architecture, emphasizing separation
    npm install
    ```
 
-## Configuration
+4. Copy the appropriate environment file:
 
-### Mongoose (MongoDB)
+   - For MongoDB, use `.env.example.mongo`:
 
-- Configure MongoDB connection in `src/config/mongoose.ts`.
+     ```bash
+     cp .env.example.mongo .env
+     ```
 
-### Sequelize (SQL)
+   - For SQL (choose MySQL, PostgreSQL, or SQLite), use `.env.example.sql`:
 
-- Configure SQL database connection in `src/config/sequelize.ts`.
+     ```bash
+     cp .env.example.sql .env
+     ```
+
+   Customize the `.env` file according to your configuration.
 
 ## Usage
 
@@ -79,7 +85,7 @@ npm start
 Build Docker image:
 
 ```bash
-docker build -t your-image-name .
+docker -f docker/Dockerfile build -t your-image-name .
 ```
 
 Run Docker container:
@@ -88,32 +94,46 @@ Run Docker container:
 docker run -p 3000:3000 -d your-image-name
 ```
 
-## Contributing
+## Additional Scripts
 
-Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests.
+- **Linting:**
+  - Check code formatting:
+    ```bash
+    npm run lint
+    ```
+  - Fix code formatting:
+    ```bash
+    npm run lint:fix
+    ```
 
-## Package.json Scripts
+- **Database Migration:**
+  - Generate migration file:
+    ```bash
+    npm run migration:generate --name your-migration-name
+    ```
+  - Run migrations:
+    ```bash
+    npm run migrate:up
+    ```
+  - Rollback migrations:
+    ```bash
+    npm run migrate:down
+    ```
 
-- `start:dev`: Start the development server using nodemon.
-- `build`: Clean the build directory and run TypeScript compiler.
-- `start`: Start the application from the build directory.
-- `lint`: Check code style using Prettier.
-- `lint:fix`: Fix code style issues using Prettier.
-- `cron:run`: Run cron jobs specified by name.
-- `seed:run`: Run database seeds specified by name.
-- `migration:generate`: Generate a Sequelize migration with a specified name.
-- `migrate:up`: Run Sequelize migrations to update the database.
-- `migrate:down`: Rollback Sequelize migrations.
-- `migrate:up:local`: Build and run migrations in local development.
-- `migrate:down:local`: Build and rollback migrations in local development.
-- `test`: Run tests using Jest.
+- **Local Database Migration (after build):**
+  - Run migrations:
+    ```bash
+    npm run migrate:up:local
+    ```
+  - Rollback migrations:
+    ```bash
+    npm run migrate:down:local
+    ```
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Support
-
-For support or issues, please open an [issue](https://github.com/ayocodingit/boilerplate-clean-architecture/issues).
+- **Testing:**
+  - Run tests:
+    ```bash
+    npm test
+    ```
 
 Feel free to customize this README to suit your project's specifics. Adjust the Clean Architecture layers and principles as needed for your application.
