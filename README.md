@@ -148,6 +148,9 @@ modules/
     │   │   └── handler.ts
     │   └── graphQL/
     │       └── handler.ts
+    ├── entity/
+    │   ├── interface.ts // for the core business entities
+    │   └── schema.ts // for the schema validation
     ├── repository/
     │   ├── mongo/
     │   │   └── repository.ts
@@ -156,6 +159,6 @@ modules/
     │   └── postgreSQL/
     │       └── repository.ts
     ├── usecase/
-    │   └── usecase
-    └── name module.ts // in this file for init/control module to load in the main 
+    │   └── usecase.ts
+    └── name module.ts // for init the module to load in the main
 ```
