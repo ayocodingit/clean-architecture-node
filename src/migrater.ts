@@ -10,7 +10,7 @@ const database = {
     migrationStorageTableName: 'migrations',
 }
 
-module.exports = {
+export = {
     development: database,
     test: database,
     production: database,
