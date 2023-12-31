@@ -11,5 +11,5 @@ COPY package*.json ./
 RUN npm install --production
 RUN npm cache clean --force
 COPY --from=builder ./app/build ./build
-EXPOSE 8000
+EXPOSE 3000
 CMD ["npm", "run", "start"]

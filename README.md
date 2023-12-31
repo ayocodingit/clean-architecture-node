@@ -107,10 +107,6 @@ docker run -p 3000:3000 -d your-image-name
     ```
 
 - **Database Migration:**
-  - Generate migration file:
-    ```bash
-    npm run migration:generate --name your-migration-name
-    ```
   - Run migrations:
     ```bash
     npm run migrate:up
@@ -120,7 +116,11 @@ docker run -p 3000:3000 -d your-image-name
     npm run migrate:down
     ```
 
-- **Local Database Migration (after build):**
+- **Local Database Migration (development):**
+  - Generate migration file:
+    ```bash
+    npm run migration:generate --name your-migration-name
+    ```
   - Run migrations:
     ```bash
     npm run migrate:up:local
@@ -136,4 +136,26 @@ docker run -p 3000:3000 -d your-image-name
     npm test
     ```
 
-Feel free to customize this README to suit your project's specifics. Adjust the Clean Architecture layers and principles as needed for your application.
+## Folder Structure Modules
+
+```bash
+modules/
+└── name module/
+    ├── delivery/
+    │   ├── http/
+    │   │   └── handler.ts
+    │   ├── grpc/
+    │   │   └── handler.ts
+    │   └── graphQL/
+    │       └── handler.ts
+    ├── repository/
+    │   ├── mongo/
+    │   │   └── repository.ts
+    │   ├── mySQL/
+    │   │   └── repository.ts
+    │   └── postgreSQL/
+    │       └── repository.ts
+    ├── usecase/
+    │   └── usecase
+    └── name module.ts // in this file for init/control module to load in the main 
+```

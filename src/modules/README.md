@@ -1,25 +1,25 @@
-folder for Modules app
+folder for Modules
 
 ## Folder Structure
 
 ```bash
-internal/
-└── name pkg/
+modules/
+└── name module/
     ├── delivery/
     │   ├── http/
-    │   │   └── ...
+    │   │   └── handler.ts
     │   ├── grpc/
-    │   │   └── ...
+    │   │   └── handler.ts
     │   └── graphQL/
-    │       └── ...
+    │       └── handler.ts
     ├── repository/
     │   ├── mongo/
-    │   │   └── ...
+    │   │   └── repository.ts
     │   ├── mySQL/
-    │   │   └── ...
+    │   │   └── repository.ts
     │   └── postgreSQL/
-    │       └── ...
+    │       └── repository.ts
     ├── usecase/
-    │   └── ...
-    └── ... // in this file for provide name pkg
+    │   └── usecase.ts
+    └── name module.ts // in this file for init/control the module to load in the main
 ```

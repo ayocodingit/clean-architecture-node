@@ -1,5 +1,5 @@
 {
-    "name": "clean-architecture",
+    "name": "boilerplate-clean-architecture",
     "version": "1.0.0",
     "description": "",
     "main": "main.js",
@@ -23,10 +23,13 @@
         "nodejs",
         "typescript",
         "express",
-        "javascript"
+        "javascript",
+        "sequelize",
+        "mongoose",
+        "boilerplate"
     ],
     "author": "ayocodingit",
-    "license": "ISC",
+    "license": "MIT",
     "devDependencies": {
         "@types/compression": "^1.7.2",
         "@types/cors": "^2.8.13",
