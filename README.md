@@ -130,6 +130,19 @@ docker run -p 3000:3000 -d your-image-name
     npm run migrate:down:local
     ```
 
+- **Seed:**
+  - Run Seed:
+    ```bash
+    npm run seed:run --name your-seed-filename
+    ```
+
+
+- **Cron:**
+  - Run Cron:
+    ```bash
+    npm run seed:run --name your-cron-filename
+    ```
+
 - **Testing:**
   - Run tests:
     ```bash
