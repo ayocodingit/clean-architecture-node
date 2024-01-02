@@ -1,7 +1,7 @@
 import { DataTypes } from 'sequelize'
 import { Connection } from '../interface'
 
-const schema = (connection: Connection) => {
+const Post = (connection: Connection) => {
     return connection.define(
         'posts',
         {
@@ -32,4 +32,4 @@ const schema = (connection: Connection) => {
     )
 }
 
-export default schema
+export default Post

@@ -1,7 +1,7 @@
 import { Connection, Schema } from 'mongoose'
 import { Model } from '../interface'
 
-const schema = (connection: Connection) => {
+const Post = (connection: Connection) => {
     const schema = new Schema(
         {
             title: {
@@ -31,4 +31,4 @@ const schema = (connection: Connection) => {
     return connection.model<Model>('posts', schema)
 }
 
-export default schema
+export default Post
