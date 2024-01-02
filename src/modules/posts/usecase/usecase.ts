@@ -1,3 +1,4 @@
+import { RequestParams } from '../../../helpers/requestParams'
 import Logger from '../../../pkg/logger'
 import { RequestBody } from '../entity/interface'
 // import Repository from '../repository/mongo/repository'
@@ -6,7 +7,7 @@ import Repository from '../repository/mysql/repository'
 class Usecase {
     constructor(private logger: Logger, private repository: Repository) {}
 
-    public async Fetch(request: any) {
+    public async Fetch(request: RequestParams) {
         const result = await this.repository.Fetch(request)
         return result
     }
