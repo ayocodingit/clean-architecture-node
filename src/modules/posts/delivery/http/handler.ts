@@ -46,7 +46,7 @@ class Handler {
                 })
                 return res
                     .status(statusCode.CREATED)
-                    .json({ data: result.toJSON(), message: 'CREATED' })
+                    .json({ data: result, message: 'CREATED' })
             } catch (error) {
                 return next(error)
             }
