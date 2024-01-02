@@ -1,6 +1,6 @@
-import { ModelStatic, Model as model, Sequelize } from 'sequelize'
+import { ModelStatic, Sequelize } from 'sequelize'
 
-export type Model = ModelStatic<model<any, any>>
+export type Model = ModelStatic<any>
 
 export type Schema = {
     post: Model
