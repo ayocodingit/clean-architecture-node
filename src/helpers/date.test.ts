@@ -49,4 +49,3 @@ describe('addDaysToDate function', () => {
         expect(result).not.toBe(startDate)
     })
 })
-

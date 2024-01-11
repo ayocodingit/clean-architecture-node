@@ -9,7 +9,11 @@ class Logger {
 
         this.logger = createLogger({
             level: config.app.log,
-            format: format.combine(format.json(), format.timestamp(), formatLog),
+            format: format.combine(
+                format.json(),
+                format.timestamp(),
+                formatLog
+            ),
             transports: [new transports.Console()],
         })
     }
