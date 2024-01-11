@@ -5,9 +5,11 @@ class Logger {
     private logger: winston.Logger
 
     constructor(config: Config) {
+        const formatLog = format.printf((log) => JSON.stringify(log))
+
         this.logger = createLogger({
             level: config.app.log,
-            format: format.combine(format.json()),
+            format: format.combine(format.json(), format.timestamp(), formatLog),
             transports: [new transports.Console()],
         })
     }
