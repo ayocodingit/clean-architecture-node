@@ -1,7 +1,6 @@
 {
     "exists": "The {{attribute}} is already exists.",
-    "object_id": "The {{attribute}} is not valid.",
     "message": "message.",
-    "token": "The token is not valid.",
+    "not_valid": "The {{attribute}} is not valid.",
     "not_exists": "The {{attribute}} is not exists."
 }

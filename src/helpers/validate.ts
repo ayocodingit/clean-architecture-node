@@ -69,7 +69,7 @@ export const ValidateObjectId = (id: string, attribute: string) => {
     if (!isValidObjectId(id)) {
         throw new error(
             statusCode.BAD_REQUEST,
-            Translate('object_id', { attribute })
+            Translate('not_valid', { attribute })
         )
     }
 
