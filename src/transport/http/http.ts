@@ -49,8 +49,7 @@ class Http {
 
         if (error.isObject) resp.error = JSON.parse(resp.error)
 
-        this.logger.Error(statusCode[code] as string, {
-            error,
+        this.logger.Error(error.message, {
             additional_info: this.AdditionalInfo(req, resp.code),
         })
 
@@ -78,6 +77,7 @@ class Http {
             http_scheme: req.protocol,
             remote_addr: req.httpVersion,
             user_agent: req.headers['user-agent'],
+            origin: req.headers['origin'] || 'unknown',
             tz: new Date(),
             code: statusCode,
             user: req.user || {},
