@@ -37,6 +37,9 @@ class Mongo {
         return {
             post,
             // Add other models if needed
+            // ...
+
+            connection,
         }
     }
 }

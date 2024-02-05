@@ -5,6 +5,9 @@ export type Model = Document
 export type Schema = {
     post: model<Document>
     // Add other models if needed
+    // ...
+
+    connection: connection
 }
 
 export type Connection = connection

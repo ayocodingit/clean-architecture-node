@@ -47,6 +47,9 @@ class Sequalize {
         return {
             post,
             // Add other models if needed
+            // ...
+
+            connection,
         }
     }
 }
