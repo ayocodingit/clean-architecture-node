@@ -4,6 +4,7 @@ import {
     RegexSanitize,
     RegexObjectID,
     RegexContentTypeImage,
+    RegexExtensionImage,
 } from './regex'
 
 describe('RegexWordScript', () => {
@@ -84,6 +85,24 @@ describe('RegexContentTypeImage', () => {
 
         invalidContentTypes.forEach((contentType) => {
             expect(RegexContentTypeImage.test(contentType)).toBe(false)
+        })
+    })
+})
+
+describe('RegexExtensionImage', () => {
+    it('should match valid image extensions (case insensitive)', () => {
+        const validExtensions = ['.png', '.jpg', '.jpeg', '.svg']
+
+        validExtensions.forEach((extension) => {
+            expect(RegexExtensionImage.test(extension)).toBe(true)
+        })
+    })
+
+    it('should not match invalid extensions', () => {
+        const invalidExtensions = ['.gif', '.bmp', '.pdf', '.png2']
+
+        invalidExtensions.forEach((extension) => {
+            expect(RegexExtensionImage.test(extension)).toBe(false)
         })
     })
 })

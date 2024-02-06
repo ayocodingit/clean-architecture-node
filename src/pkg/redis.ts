@@ -3,7 +3,7 @@ import { Config } from '../config/config.interface'
 import Logger from './logger'
 
 class Redis {
-    private client: redis.RedisClientType
+    public client: redis.RedisClientType
     constructor(config: Config, logger: Logger) {
         this.client = redis.createClient({
             url: `redis://${config.redis.host}:${config.redis.port}`,
