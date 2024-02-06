@@ -47,6 +47,8 @@ class Http {
         resp.error =
             error.message || statusCode[statusCode.INTERNAL_SERVER_ERROR]
 
+        resp.stack = error.stack
+
         if (error.isObject) resp.error = JSON.parse(resp.error)
 
         this.logger.Error(error.message, {
@@ -57,6 +59,7 @@ class Http {
             code >= statusCode.INTERNAL_SERVER_ERROR &&
             this.config.app.env === 'production'
         ) {
+            resp.stack = null
             resp.error = statusCode[statusCode.INTERNAL_SERVER_ERROR]
         }
 
