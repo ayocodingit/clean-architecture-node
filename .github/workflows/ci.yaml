@@ -44,10 +44,11 @@ jobs:
           echo APP_PORT_HTTP=3000 >> .env
           echo APP_LOG='error' >> .env
           echo DB_CONNECTION='mysql' >> .env
+          echo JWT_ACCESS_SECRET='test' >> .env
           cat .env
 
 
-      - name: Run Testing
+      - name: Run Migrate Local
         run: npm run migrate:up:local
         
       - name: Run Testing
