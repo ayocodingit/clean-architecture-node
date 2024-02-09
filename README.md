@@ -5,6 +5,8 @@
 This boilerplate provides a foundation for Node.js applications using Clean Architecture principles. It utilizes a tech stack including Mongoose, Sequelize, TypeScript, and Docker. The default HTTP framework is Express.
 
 [![GitHub Repository](https://img.shields.io/badge/GitHub-Repository-blue?logo=github)](https://github.com/ayocodingit/boilerplate-clean-architecture)
+<a href="https://codeclimate.com/github/ayocodingit/boilerplate-clean-architecture/maintainability"><img src="https://api.codeclimate.com/v1/badges/12c10806992f9baa009f/maintainability" /></a>
+<a href="https://codeclimate.com/github/ayocodingit/boilerplate-clean-architecture/test_coverage"><img src="https://api.codeclimate.com/v1/badges/12c10806992f9baa009f/test_coverage" /></a>
 
 ## Tech Stack
 
