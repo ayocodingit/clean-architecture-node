@@ -8,7 +8,6 @@ export default async (): Promise<Config.InitialOptions> => {
         collectCoverageFrom: [
             './src/helpers/*.ts',
             './src/modules/**/delivery/**',
-            './src/modules/**/entity/**',
             './src/modules/**/usecase/**',
             // add other to collect coverage
         ],
