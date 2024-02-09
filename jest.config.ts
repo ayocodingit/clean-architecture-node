@@ -9,7 +9,6 @@ export default async (): Promise<Config.InitialOptions> => {
             './src/helpers/*.ts',
             './src/modules/**/delivery/**',
             './src/modules/**/entity/**',
-            './src/modules/**/repository/**',
             './src/modules/**/usecase/**',
             // add other to collect coverage
         ],
