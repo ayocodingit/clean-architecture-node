@@ -12,6 +12,13 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=5 -e MYSQL_ROOT_PASSWORD=root -e MYSQL_USER=root -e MYSQL_PASSWORD=root -e MYSQL_DATABASE=test --entrypoint sh mysql:8 -c "exec docker-entrypoint.sh mysqld --default-authentication-plugin=mysql_native_password"
+        ports:
+          - 3306:3306
+          
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -24,6 +31,23 @@ jobs:
       - name: Run Npm Install
         run: npm install
 
+      - name: Create env file
+        run: |
+          touch .env
+          echo DB_HOST=0.0.0.0 >> .env
+          echo DB_PORT=3306 >> .env
+          echo DB_USER='root' >> .env
+          echo DB_PASSWORD='root' >> .env
+          echo DB_DATABASE='test' >> .env
+          echo APP_NAME='test' >> .env
+          echo APP_ENV='test' >> .env
+          echo APP_PORT_HTTP=3000 >> .env
+          cat .env
+
+
+      - name: Run Testing
+        run: npm run migrate:up:local
+        
       - name: Run Testing
         run: npm run test
 
