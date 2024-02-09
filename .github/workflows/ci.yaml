@@ -36,12 +36,14 @@ jobs:
           touch .env
           echo DB_HOST=0.0.0.0 >> .env
           echo DB_PORT=3306 >> .env
-          echo DB_USER='test' >> .env
+          echo DB_USERNAME='test' >> .env
           echo DB_PASSWORD='test' >> .env
-          echo DB_DATABASE='test' >> .env
+          echo DB_NAME='test' >> .env
           echo APP_NAME='test' >> .env
           echo APP_ENV='test' >> .env
           echo APP_PORT_HTTP=3000 >> .env
+          echo APP_LOG='error' >> .env
+          echo DB_CONNECTION='mysql' >> .env
           cat .env
 
 
