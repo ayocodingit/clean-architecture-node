@@ -10,7 +10,7 @@ import multer from 'multer'
 import Logger from '../../pkg/logger'
 
 class Http {
-    private app: Express
+    public app: Express
     public dest: string = '.'
 
     constructor(private logger: Logger, private config: Config) {
@@ -47,13 +47,10 @@ class Http {
         resp.error =
             error.message || statusCode[statusCode.INTERNAL_SERVER_ERROR]
 
-        resp.stack = error.stack
-
         if (error.isObject) resp.error = JSON.parse(resp.error)
 
         this.logger.Error(error.message, {
             error: {
-                stack: error.stack,
                 message: error.message,
             },
             additional_info: this.AdditionalInfo(req, resp.code),

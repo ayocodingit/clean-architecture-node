@@ -4,7 +4,7 @@ import { Config } from '../config/config.interface'
 class Logger {
     private logger: winston.Logger
 
-    constructor(config: Config) {
+    constructor(private config: Config) {
         const formatLog = format.printf((log) => JSON.stringify(log))
 
         this.logger = createLogger({

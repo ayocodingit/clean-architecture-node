@@ -1,6 +1,6 @@
 import { Config } from '../../config/config.interface'
 import Logger from '../../pkg/logger'
-import { Sequelize as createConnection, Dialect } from 'sequelize'
+import { Sequelize as createConnection, Dialect, Op } from 'sequelize'
 import Post from './schemas/post.schema'
 import { Connection } from './interface'
 
@@ -16,7 +16,7 @@ class Sequalize {
         } = config.db
 
         const connection = new createConnection(name, username, password, {
-            host: host,
+            host,
             dialect: dialect as Dialect,
             logging: false,
             pool: {
@@ -49,7 +49,9 @@ class Sequalize {
             // Add other models if needed
             // ...
 
+            // Add other require of the driver database
             connection,
+            Op,
         }
     }
 }

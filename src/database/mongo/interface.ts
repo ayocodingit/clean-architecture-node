@@ -7,6 +7,7 @@ export type Schema = {
     // Add other models if needed
     // ...
 
+    // Add other require of the driver database
     connection: connection
 }
 

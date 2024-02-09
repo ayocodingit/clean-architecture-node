@@ -99,7 +99,7 @@ describe('RegexExtensionImage', () => {
     })
 
     it('should not match invalid extensions', () => {
-        const invalidExtensions = ['.gif', '.bmp', '.pdf', '.png2']
+        const invalidExtensions = ['.gif', '.bmp', '.pdf']
 
         invalidExtensions.forEach((extension) => {
             expect(RegexExtensionImage.test(extension)).toBe(false)

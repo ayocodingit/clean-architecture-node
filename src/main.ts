@@ -1,5 +1,5 @@
 import config from './config/config'
-import Mongo from './database/mongo/mongo'
+// import Mongo from './database/mongo/mongo'
 import Sequelize from './database/sequelize/sequelize'
 import Posts from './modules/posts/posts'
 import Logger from './pkg/logger'
@@ -20,6 +20,7 @@ const main = async () => {
 
     return {
         http,
+        connection,
     }
 }
 

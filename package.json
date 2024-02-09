@@ -16,7 +16,7 @@
         "migrate:down": "npx sequelize-cli db:migrate:undo --config build/src/migrater.js --migrations-path build/src/database/sequelize/migrations",
         "migrate:up:local": "npm run build && npm run migrate:up",
         "migrate:down:local": "npm run build && npm run migrate:down",
-        "test": "npx jest"
+        "test": "APP_ENV=test APP_LOG=error npx jest"
     },
     "keywords": [
         "clean-architecture",
@@ -40,10 +40,12 @@
         "@types/multer": "^1.4.11",
         "@types/node": "^18.11.18",
         "@types/sequelize": "^4.28.19",
+        "@types/supertest": "^6.0.2",
         "jest": "^29.5.0",
         "nodemon": "^2.0.20",
         "prettier": "2.8.2",
         "rimraf": "^3.0.2",
+        "supertest": "^6.3.4",
         "ts-jest": "^29.1.0",
         "ts-node": "^10.9.1",
         "tslib": "^2.6.2",
