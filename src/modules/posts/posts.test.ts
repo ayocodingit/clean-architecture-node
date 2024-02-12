@@ -20,6 +20,8 @@ beforeAll(async () => {
 })
 
 afterAll(async () => {
+    // add logic to clear data inserted after running 
+    // db.query('DELETE FROM posts')
     return db.close()
 })
 
