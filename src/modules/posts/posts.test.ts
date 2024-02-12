@@ -9,11 +9,14 @@ import config from '../../config/config'
 
 let app: Express
 let db: Sequelize
+let token: string
 
 beforeAll(async () => {
     const { http, connection } = await main
     app = http.app
     db = connection
+    const jwt = new Jwt(config.jwt.access_key)
+    token = jwt.Sign({})
 })
 
 afterAll(async () => {
@@ -48,8 +51,6 @@ describe('http GET test', () => {
 
 describe('http test', () => {
     it('test POST endpoint "/v1/posts/" success', async () => {
-        const jwt = new Jwt(config.jwt.access_key)
-        const token = jwt.Sign({})
         return request(app)
             .post('/v1/posts/')
             .set('Authorization', 'Bearer ' + token)
@@ -62,8 +63,6 @@ describe('http test', () => {
 })
 describe('http test', () => {
     it('test endpoint "/v1/posts/" throw error not valid body', async () => {
-        const jwt = new Jwt(config.jwt.access_key)
-        const token = jwt.Sign({})
         return request(app)
             .post('/v1/posts/')
             .set('Authorization', 'Bearer ' + token)
