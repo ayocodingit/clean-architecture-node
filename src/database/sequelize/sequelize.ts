@@ -13,11 +13,13 @@ class Sequalize {
             host,
             connection: dialect,
             pool,
+            port
         } = config.db
 
         const connection = new createConnection(name, username, password, {
             host,
             dialect: dialect as Dialect,
+            port,
             logging: false,
             pool: {
                 min: pool.min,
