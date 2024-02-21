@@ -5,7 +5,7 @@ import { NextFunction, Request, Response } from 'express'
 import statusCode from '../../../../pkg/statusCode'
 import { GetMeta, GetRequestParams } from '../../../../helpers/requestParams'
 import { ValidateFormRequest } from '../../../../helpers/validate'
-import { RequestSchema } from '../../entity/schema'
+import { RequestBody } from '../../entity/schema'
 
 class Handler {
     constructor(
@@ -36,7 +36,7 @@ class Handler {
     public Store() {
         return async (req: any, res: Response, next: NextFunction) => {
             try {
-                const body = ValidateFormRequest(RequestSchema, req.body)
+                const body = ValidateFormRequest(RequestBody, req.body)
                 const result = await this.usecase.Store(body)
                 this.logger.Info(statusCode[statusCode.CREATED], {
                     additional_info: this.http.AdditionalInfo(

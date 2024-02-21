@@ -1,6 +1,7 @@
 import Joi from 'joi'
 
-export const RequestSchema = Joi.object({
+// define for schema validate
+export const RequestBody = Joi.object({
     title: Joi.string().required(),
     description: Joi.string().required(),
 })

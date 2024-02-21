@@ -20,7 +20,7 @@ beforeAll(async () => {
 })
 
 afterAll(async () => {
-    // add logic to clear data inserted after running 
+    // add logic to clean data, mocking or dst, after running
     // db.query('DELETE FROM posts')
     return db.close()
 })
