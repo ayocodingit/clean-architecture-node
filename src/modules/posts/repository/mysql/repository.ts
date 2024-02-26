@@ -1,12 +1,12 @@
 import Logger from '../../../../pkg/logger'
 import { RequestParams } from '../../../../helpers/requestParams'
-import { RequestBody } from '../../entity/interface'
+import { RequestBody, RequestQueryFetch } from '../../entity/interface'
 import { Schema } from '../../../../database/sequelize/interface'
 
 class Repository {
     constructor(private logger: Logger, private schema: Schema) {}
 
-    public async Fetch(request: RequestParams) {
+    public async Fetch(request: RequestParams<RequestQueryFetch>) {
         const { count, rows } = await this.schema.post.findAndCountAll({
             limit: request.limit,
             offset: request.offset,
