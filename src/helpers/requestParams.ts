@@ -10,7 +10,9 @@ export type RequestParamsDefault = {
 
 export type RequestParams<T> = T & RequestParamsDefault
 
-export const GetRequestParams = <T>(query: RequestParams<T>): RequestParams<T> => {
+export const GetRequestParams = <T>(
+    query: RequestParams<T>
+): RequestParams<T> => {
     const limit = Number(query.limit) || 10
     const page = Number(query.page) || 1
     const offset = limit * (page - 1)
@@ -28,7 +30,7 @@ export const GetRequestParams = <T>(query: RequestParams<T>): RequestParams<T> =
         sort_order,
         order_by,
         keyword: q,
-    } 
+    }
 
     return requestParams
 }
