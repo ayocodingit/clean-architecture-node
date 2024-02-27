@@ -8,16 +8,20 @@ describe('test all function in file Request Params', () => {
     })
 
     it('test function GetRequestParams', () => {
-        const query = {
+        const query: any = {
             limit: 10,
             page: 1,
         }
-        const req = GetRequestParams(query)
+        const req = GetRequestParams<{}>(query)
         expect(req).toEqual(expectRequestParams)
     })
 
     it('test function Paginate with not send object limit and page', () => {
-        const req = GetRequestParams({})
+        const query: any = {
+            limit: 10,
+            page: 1,
+        }
+        const req = GetRequestParams<{}>(query)
         expect(req).toEqual(expectRequestParams)
     })
 })
@@ -32,7 +36,11 @@ describe('test all function in file Paginate', () => {
         total: expect.any(Number),
     })
     it('test function Meta from pagination', () => {
-        const paginate = GetRequestParams({})
+        const query: any = {
+            limit: 10,
+            page: 1,
+        }
+        const paginate = GetRequestParams<{}>(query)
         const meta = GetMeta(paginate, 10)
         expect(meta).toEqual(expectMetaPaginate)
     })
