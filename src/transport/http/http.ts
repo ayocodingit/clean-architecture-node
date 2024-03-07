@@ -8,6 +8,7 @@ import { Config } from '../../config/config.interface'
 import Error from '../../pkg/error'
 import multer from 'multer'
 import Logger from '../../pkg/logger'
+import rateLimit from 'express-rate-limit'
 
 class Http {
     public app: Express
@@ -116,6 +117,25 @@ class Http {
     public Upload(fieldName: string) {
         const upload = multer({ dest: this.dest })
         return upload.single(fieldName)
+    }
+
+    public RateLimiter(
+        durationInMs: number,
+        maxRetry: number,
+        skipSuccessfulRequests: boolean = false
+    ) {
+        return rateLimit({
+            windowMs: durationInMs,
+            max: maxRetry,
+            handler: (req: any, response) => {
+                const { resetTime } = req.rateLimit
+                return response.status(statusCode.TOO_MANY_REQUESTS).json({
+                    error: statusCode[statusCode.TOO_MANY_REQUESTS],
+                    reset_time: resetTime,
+                })
+            },
+            skipSuccessfulRequests,
+        })
     }
 
     public Run(port: number) {
