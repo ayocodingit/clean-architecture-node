@@ -122,7 +122,6 @@ class Http {
     public RateLimiter(
         durationInMs: number,
         maxRetry: number,
-        errorMessage: string,
         skipSuccessfulRequests: boolean = false
     ) {
         return rateLimit({
@@ -131,7 +130,7 @@ class Http {
             handler: (req: any, response) => {
                 const { resetTime } = req.rateLimit
                 return response.status(statusCode.TOO_MANY_REQUESTS).json({
-                    error: errorMessage,
+                    error: statusCode[statusCode.TOO_MANY_REQUESTS],
                     reset_time: resetTime,
                 })
             },
