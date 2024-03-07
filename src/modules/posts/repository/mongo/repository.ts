@@ -1,12 +1,12 @@
 import Logger from '../../../../pkg/logger'
 import { RequestParams } from '../../../../helpers/requestParams'
-import { RequestBody } from '../../entity/interface'
+import { RequestBody, RequestQueryFetch } from '../../entity/interface'
 import { Schema } from '../../../../database/mongo/interface'
 
 class Repository {
     constructor(private logger: Logger, private schema: Schema) {}
 
-    public async Fetch(request: RequestParams) {
+    public async Fetch(request: RequestParams<RequestQueryFetch>) {
         const data = await this.schema.post
             .find()
             .limit(request.limit)
