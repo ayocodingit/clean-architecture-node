@@ -1,7 +1,7 @@
 import config from './config/config'
 // import Mongo from './database/mongo/mongo'
 import Sequelize from './database/sequelize/sequelize'
-import Posts from './modules/posts/posts'
+import Post from './modules/post/post'
 import Logger from './pkg/logger'
 import Http from './transport/http/http'
 
@@ -13,7 +13,7 @@ const main = async () => {
     const http = new Http(logger, config)
 
     // Start Load Modules
-    new Posts(logger, http, config, connection)
+    new Post(logger, config, connection).RunHttp(http)
     // End Load Modules
 
     http.Run(config.app.port.http)

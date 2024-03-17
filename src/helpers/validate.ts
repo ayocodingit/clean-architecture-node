@@ -16,7 +16,7 @@ const getValidationErrors = (validationErrors: Joi.ValidationErrorItem[]) => {
     return errors
 }
 
-export const Validate = (schema: Joi.Schema, values: any) => {
+export const Validate = <T = any>(schema: Joi.Schema<T>, values: any) => {
     const { error, value } = schema.validate(values, {
         abortEarly: false,
         stripUnknown: true,
@@ -41,7 +41,10 @@ export const Validate = (schema: Joi.Schema, values: any) => {
     }
 }
 
-export const ValidateFormRequest = (schema: Joi.Schema, values: any) => {
+export const ValidateFormRequest = <T = any>(
+    schema: Joi.Schema<T>,
+    values: any
+) => {
     const { errors, value } = Validate(schema, values)
 
     if (errors) {
@@ -55,7 +58,7 @@ export const ValidateFormRequest = (schema: Joi.Schema, values: any) => {
     return value
 }
 
-export const ValidateParams = (schema: Joi.Schema, values: any) => {
+export const ValidateParams = <T = any>(schema: Joi.Schema<T>, values: any) => {
     const { errors, value } = Validate(schema, values)
 
     if (errors) {
