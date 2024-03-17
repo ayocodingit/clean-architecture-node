@@ -1,12 +1,20 @@
 import Logger from '../../../../pkg/logger'
 import { RequestParams } from '../../../../helpers/requestParams'
-import { RequestBody, RequestQueryFetch } from '../../entity/interface'
+import {
+    SchemaRepository,
+    RequestBody,
+    RequestQueryFetch,
+    Fetch,
+    Store,
+} from '../../entity/interface'
 import { Schema } from '../../../../database/mongo/interface'
 
-class Repository {
+class Repository implements SchemaRepository {
     constructor(private logger: Logger, private schema: Schema) {}
 
-    public async Fetch(request: RequestParams<RequestQueryFetch>) {
+    public async Fetch(
+        request: RequestParams<RequestQueryFetch>
+    ): Promise<Fetch> {
         const data = await this.schema.post
             .find()
             .limit(request.limit)
@@ -18,7 +26,7 @@ class Repository {
         }
     }
 
-    public async Store(body: RequestBody) {
+    public async Store(body: RequestBody): Promise<Store> {
         const newPost = new this.schema.post({
             title: body.title,
             description: body.description,

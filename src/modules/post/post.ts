@@ -12,10 +12,11 @@ import Sequelize from '../../database/sequelize/sequelize'
 // import Repository from './repository/mongo/repository'
 // import Mongo from '../../database/mongo/mongo'
 
-class Posts {
+class Post {
+    private usecase: Usecase
+
     constructor(
         private logger: Logger,
-        private http: Http,
         private config: Config,
         connection: Connection
     ) {
@@ -23,34 +24,34 @@ class Posts {
         // const repository = new Repository(logger, schema)
         const schema = Sequelize.Schema(connection)
         const repository = new Repository(logger, schema)
-        const usecase = new Usecase(logger, repository)
-        this.loadHttp(usecase)
+        this.usecase = new Usecase(logger, repository)
     }
 
-    private loadHttp(usecase: Usecase) {
-        const handler = new Handler(this.logger, this.http, usecase)
-        this.httpPublic(handler)
-        this.httpPrivate(handler)
+    public RunHttp(http: Http) {
+        const handler = new Handler(this.logger, http, this.usecase)
+        this.httpPublic(handler, http)
+        this.httpPrivate(handler, http)
+        return this
     }
 
-    private httpPublic(handler: Handler) {
-        const Router = this.http.Router()
+    private httpPublic(handler: Handler, http: Http) {
+        const Router = http.Router()
 
         Router.get('/', handler.Fetch())
 
-        this.http.SetRouter('/v1/public/posts/', Router)
+        http.SetRouter('/v1/public/posts/', Router)
     }
 
-    public httpPrivate(handler: Handler) {
-        const Router = this.http.Router()
+    public httpPrivate(handler: Handler, http: Http) {
+        const Router = http.Router()
         const jwt = new Jwt(this.config.jwt.access_key)
 
         const auth = VerifyAuth(jwt)
 
         Router.post('/', handler.Store())
 
-        this.http.SetRouter('/v1/posts/', auth, Router)
+        http.SetRouter('/v1/posts/', auth, Router)
     }
 }
 
-export default Posts
+export default Post
