@@ -3,7 +3,7 @@ import Logger from '../../../../pkg/logger'
 import Usecase from '../../usecase/usecase'
 import { NextFunction, Response } from 'express'
 import statusCode from '../../../../pkg/statusCode'
-import { GetMeta, GetRequestParams } from '../../../../helpers/requestParams'
+import { GetMeta, GetRequest } from '../../../../helpers/requestParams'
 import { ValidateFormRequest } from '../../../../helpers/validate'
 import { Store } from '../../entity/schema'
 import { RequestQueryFetch } from '../../entity/interface'
@@ -18,7 +18,7 @@ class Handler {
     public Fetch() {
         return async (req: any, res: Response, next: NextFunction) => {
             try {
-                const request = GetRequestParams<RequestQueryFetch>(req.query)
+                const request = GetRequest<RequestQueryFetch>(req.query)
                 const { data, count } = await this.usecase.Fetch(request)
                 this.logger.Info(statusCode[statusCode.OK], {
                     additional_info: this.http.AdditionalInfo(

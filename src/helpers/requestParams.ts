@@ -1,18 +1,19 @@
-export type RequestParamsDefault = {
+type RequestMeta = {
     page: number
     offset: number
     limit: number
+}
+
+type RequestDefault = {
     order_by: string
     sort_order: string
     keyword: string
     q: string
 }
 
-export type RequestParams<T> = T & RequestParamsDefault
+type Request<T> = RequestDefault & RequestMeta & T
 
-export const GetRequestParams = <T>(
-    query: RequestParams<T>
-): RequestParams<T> => {
+export const GetRequest = <T = any>(query: Request<T>): Request<T> => {
     const limit = Number(query.limit) || 10
     const page = Number(query.page) || 1
     const offset = limit * (page - 1)
@@ -22,7 +23,7 @@ export const GetRequestParams = <T>(
         order_by = 'asc'
     }
 
-    const requestParams: RequestParams<T> = {
+    const request: Request<T> = {
         ...query,
         page,
         offset,
@@ -32,10 +33,10 @@ export const GetRequestParams = <T>(
         keyword: q,
     }
 
-    return requestParams
+    return request
 }
 
-export const GetMeta = (request: RequestParamsDefault, count: number) => {
+export const GetMeta = (request: RequestMeta, count: number) => {
     return {
         page: request.page,
         last_page: Math.ceil(count / request.limit),
