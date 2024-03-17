@@ -1,9 +1,9 @@
 import { Model as model, Connection as connection } from 'mongoose'
 
-export type Model = Document
+export type Model = model<any>
 
 export type Schema = {
-    post: model<Document>
+    post: Model
     // Add other models if needed
     // ...
 
