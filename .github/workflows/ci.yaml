@@ -47,15 +47,14 @@ jobs:
           echo JWT_ACCESS_SECRET='test' >> .env
           cat .env
 
+      - name: Run build
+        run: npm run build
 
       - name: Run Migrate Local
-        run: npm run migrate:up:local
+        run: npm run migrate:up
         
       - name: Run Testing
         run: npm run test
-
-      - name: Run build
-        run: npm run build
 
       - name: Set Up Codeclimate and Send Report Codeclimate
         uses: paambaati/codeclimate-action@v2.7.5
