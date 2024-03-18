@@ -1,4 +1,4 @@
-import { GetMeta, GetRequestParams } from './requestParams'
+import { GetMeta, GetRequest } from './requestParams'
 
 describe('test all function in file Request Params', () => {
     const expectRequestParams = expect.objectContaining({
@@ -7,12 +7,12 @@ describe('test all function in file Request Params', () => {
         offset: expect.any(Number),
     })
 
-    it('test function GetRequestParams', () => {
+    it('test function GetRequest', () => {
         const query: any = {
             limit: 10,
             page: 1,
         }
-        const req = GetRequestParams<{}>(query)
+        const req = GetRequest<{}>(query)
         expect(req).toEqual(expectRequestParams)
     })
 
@@ -21,7 +21,7 @@ describe('test all function in file Request Params', () => {
             limit: 10,
             page: 1,
         }
-        const req = GetRequestParams<{}>(query)
+        const req = GetRequest<{}>(query)
         expect(req).toEqual(expectRequestParams)
     })
 })
@@ -40,7 +40,7 @@ describe('test all function in file Paginate', () => {
             limit: 10,
             page: 1,
         }
-        const paginate = GetRequestParams<{}>(query)
+        const paginate = GetRequest<{}>(query)
         const meta = GetMeta(paginate, 10)
         expect(meta).toEqual(expectMetaPaginate)
     })
