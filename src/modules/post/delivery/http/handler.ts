@@ -15,7 +15,7 @@ class Handler {
         private usecase: Usecase
     ) {}
 
-    public Fetch(): RequestHandler {
+    public Fetch() {
         return async (req: any, res: Response, next: NextFunction) => {
             try {
                 const request = GetRequest<RequestQueryFetch>(req.query)
@@ -34,7 +34,7 @@ class Handler {
         }
     }
 
-    public Store(): RequestHandler {
+    public Store() {
         return async (req: any, res: Response, next: NextFunction) => {
             try {
                 const body = ValidateFormRequest(Store, req.body)

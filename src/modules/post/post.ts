@@ -8,6 +8,7 @@ import Jwt from '../../pkg/jwt'
 import { Connection } from '../../database/sequelize/interface'
 import Repository from './repository/mysql/repository'
 import Sequelize from '../../database/sequelize/sequelize'
+import { RequestHandler } from 'express'
 // import { Connection } from '../../database/mongo/interface'
 // import Repository from './repository/mongo/repository'
 // import Mongo from '../../database/mongo/mongo'
@@ -37,7 +38,7 @@ class Post {
     private httpPublic(handler: Handler, http: Http) {
         const Router = http.Router()
 
-        Router.get('/', handler.Fetch())
+        Router.get('/', handler.Fetch() as RequestHandler)
 
         http.SetRouter('/v1/public/posts/', Router)
     }
@@ -48,7 +49,7 @@ class Post {
 
         const auth = VerifyAuth(jwt)
 
-        Router.post('/', handler.Store())
+        Router.post('/', handler.Store() as RequestHandler)
 
         http.SetRouter('/v1/posts/', auth, Router)
     }
