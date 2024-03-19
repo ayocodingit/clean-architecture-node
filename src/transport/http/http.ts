@@ -1,4 +1,4 @@
-import express, { Express, NextFunction, Request, Response } from 'express'
+import express, { Express, NextFunction, Request, RequestHandler, Response } from 'express'
 import statusCode from '../../pkg/statusCode'
 import cors from 'cors'
 import bodyParser from 'body-parser'
@@ -99,7 +99,7 @@ class Http {
         return express.Router()
     }
 
-    public SetRouter(prefix: string, ...router: any) {
+    public SetRouter(prefix: string, ...router: RequestHandler[]) {
         this.app.use(prefix, router)
     }
 
