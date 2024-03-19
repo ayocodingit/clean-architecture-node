@@ -15,8 +15,8 @@ class Handler {
         private usecase: Usecase
     ) {}
 
-    public Fetch() {
-        return (async (req: any, res: Response, next: NextFunction) => {
+    public Fetch(): RequestHandler {
+        return async (req: any, res: Response, next: NextFunction) => {
             try {
                 const request = GetRequest<RequestQueryFetch>(req.query)
                 const { data, count } = await this.usecase.Fetch(request)
@@ -31,11 +31,11 @@ class Handler {
             } catch (error) {
                 return next(error)
             }
-        }) as RequestHandler
+        }
     }
 
-    public Store() {
-        return (async (req: any, res: Response, next: NextFunction) => {
+    public Store(): RequestHandler {
+        return async (req: any, res: Response, next: NextFunction) => {
             try {
                 const body = ValidateFormRequest(Store, req.body)
                 const result = await this.usecase.Store(body)
@@ -51,7 +51,7 @@ class Handler {
             } catch (error) {
                 return next(error)
             }
-        }) as RequestHandler
+        }
     }
 }
 
