@@ -38,7 +38,6 @@ class Post {
         const Router = http.Router()
 
         Router.get('/', handler.Fetch())
-        Router.get('/run-cron', handler.Fetch())
 
         http.SetRouter('/v1/public/posts/', Router)
     }

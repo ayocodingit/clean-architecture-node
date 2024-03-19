@@ -1,7 +1,7 @@
 import Http from '../../../../transport/http/http'
 import Logger from '../../../../pkg/logger'
 import Usecase from '../../usecase/usecase'
-import { NextFunction, Response } from 'express'
+import { NextFunction, RequestHandler, Response } from 'express'
 import statusCode from '../../../../pkg/statusCode'
 import { GetMeta, GetRequest } from '../../../../helpers/requestParams'
 import { ValidateFormRequest } from '../../../../helpers/validate'
@@ -16,7 +16,7 @@ class Handler {
     ) {}
 
     public Fetch() {
-        return async (req: any, res: Response, next: NextFunction) => {
+        return (async (req: any, res: Response, next: NextFunction) => {
             try {
                 const request = GetRequest<RequestQueryFetch>(req.query)
                 const { data, count } = await this.usecase.Fetch(request)
@@ -31,11 +31,11 @@ class Handler {
             } catch (error) {
                 return next(error)
             }
-        }
+        }) as RequestHandler
     }
 
     public Store() {
-        return async (req: any, res: Response, next: NextFunction) => {
+        return (async (req: any, res: Response, next: NextFunction) => {
             try {
                 const body = ValidateFormRequest(Store, req.body)
                 const result = await this.usecase.Store(body)
@@ -51,7 +51,7 @@ class Handler {
             } catch (error) {
                 return next(error)
             }
-        }
+        }) as RequestHandler
     }
 }
 

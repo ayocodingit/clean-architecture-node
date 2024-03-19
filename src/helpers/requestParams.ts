@@ -13,7 +13,9 @@ type RequestDefault = {
 
 export type RequestParams<T> = RequestDefault & RequestMeta & T
 
-export const GetRequest = <T = any>(query: RequestParams<T>): RequestParams<T> => {
+export const GetRequest = <T = any>(
+    query: RequestParams<T>
+): RequestParams<T> => {
     const limit = Number(query.limit) || 10
     const page = Number(query.page) || 1
     const offset = limit * (page - 1)

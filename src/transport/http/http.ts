@@ -108,7 +108,7 @@ class Http {
             this.logger.Info('OK', {
                 additional_info: this.AdditionalInfo(req, res.statusCode),
             })
-            res.status(statusCode.OK).json({
+            return res.json({
                 app_name: this.config.app.name,
             })
         })
