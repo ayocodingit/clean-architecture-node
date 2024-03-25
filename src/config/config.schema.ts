@@ -7,6 +7,7 @@ export default Joi.object({
         .default('local'),
     APP_PORT_HTTP: Joi.number().required(),
     APP_LOG: Joi.string().valid('info', 'error', 'warn', 'debug').required(),
+    APP_CORS: Joi.string().optional().default(''),
     DB_CONNECTION: Joi.string()
         .valid('mysql', 'postgres', 'mongo')
         .default('mongo'),

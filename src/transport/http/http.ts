@@ -1,4 +1,10 @@
-import express, { Express, NextFunction, Request, RequestHandler, Response } from 'express'
+import express, {
+    Express,
+    NextFunction,
+    Request,
+    RequestHandler,
+    Response,
+} from 'express'
 import statusCode from '../../pkg/statusCode'
 import cors from 'cors'
 import bodyParser from 'body-parser'
@@ -9,19 +15,53 @@ import Error from '../../pkg/error'
 import multer from 'multer'
 import Logger from '../../pkg/logger'
 import rateLimit from 'express-rate-limit'
+import error from '../../pkg/error'
+
+type responseError = {
+    error?: string | object
+    errors?: object
+}
 
 class Http {
     public app: Express
     public dest: string = '.'
+    private whitelistCors = this.config.app.cors
 
     constructor(private logger: Logger, private config: Config) {
         this.app = express()
         this.plugins()
-        this.pageHome()
+        this.ping()
+    }
+
+    private isValidCors = (origin: string | undefined) => {
+        if (!origin) return false
+
+        for (const value of this.whitelistCors) {
+            if (value.test(origin)) {
+                return true
+            }
+        }
+
+        return false
+    }
+
+    private configCors(
+        origin: string | undefined,
+        callback: (err: Error | null, origin?: boolean) => void
+    ) {
+        if (this.whitelistCors.length === 0 || this.isValidCors(origin)) {
+            return callback(null, true)
+        }
+
+        callback(new error(statusCode.FORBIDDEN, 'Not allowed by CORS'))
     }
 
     private plugins() {
-        this.app.use(cors())
+        this.app.use(
+            cors({
+                origin: this.configCors,
+            })
+        )
         this.app.use(bodyParser.urlencoded({ extended: false }))
         this.app.use(bodyParser.json())
         this.app.use(helmet())
@@ -41,32 +81,31 @@ class Http {
         error: Error,
         req: Request,
         res: Response,
-        next: NextFunction
+        _: NextFunction
     ) => {
-        const resp: Record<string, any> = {}
-        const code = Number(error.status) || 500
+        const resp: responseError = {}
+        const code = Number(error.status) || statusCode.INTERNAL_SERVER_ERROR
         resp.error =
             error.message || statusCode[statusCode.INTERNAL_SERVER_ERROR]
 
-        if (error.isObject) resp.error = JSON.parse(resp.error)
+        if (error.isObject) resp.error = JSON.parse(error.message)
 
         this.logger.Error(error.message, {
             error: {
                 message: error.message,
             },
-            additional_info: this.AdditionalInfo(req, resp.code),
+            additional_info: this.AdditionalInfo(req, code),
         })
 
         if (
             code >= statusCode.INTERNAL_SERVER_ERROR &&
             this.config.app.env === 'production'
         ) {
-            resp.stack = null
             resp.error = statusCode[statusCode.INTERNAL_SERVER_ERROR]
         }
 
         if (code === statusCode.UNPROCESSABLE_ENTITY) {
-            resp.errors = resp.error
+            resp.errors = resp.error as object
             delete resp.error
         }
 
@@ -103,7 +142,7 @@ class Http {
         this.app.use(prefix, router)
     }
 
-    private pageHome = () => {
+    private ping = () => {
         this.app.get('/', (req: Request, res: Response) => {
             this.logger.Info('OK', {
                 additional_info: this.AdditionalInfo(req, res.statusCode),

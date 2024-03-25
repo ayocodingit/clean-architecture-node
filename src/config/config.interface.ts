@@ -6,6 +6,7 @@ export interface Config {
             http: number
         }
         log: string
+        cors: RegExp[]
     }
     db: {
         connection: string

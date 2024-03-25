@@ -6,6 +6,11 @@ dotenv.config()
 
 const env = configValidate(process.env)
 
+// split and convert cors to Regex
+const cors = env.APP_CORS
+    ? env.APP_CORS.split(',').map((value: string) => new RegExp(value))
+    : []
+
 const config: Config = {
     app: {
         name: env.APP_NAME,
@@ -14,6 +19,7 @@ const config: Config = {
             http: env.APP_PORT_HTTP,
         },
         log: env.APP_LOG,
+        cors,
     },
     db: {
         connection: env.DB_CONNECTION,
