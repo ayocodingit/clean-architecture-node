@@ -16,6 +16,7 @@ import multer from 'multer'
 import Logger from '../../pkg/logger'
 import rateLimit from 'express-rate-limit'
 import error from '../../pkg/error'
+import config from '../../config/config'
 
 type responseError = {
     error?: string | object
@@ -25,43 +26,44 @@ type responseError = {
 class Http {
     public app: Express
     public dest: string = '.'
-    private whitelistCors = this.config.app.cors
+    private whitelistCors: RegExp[]
 
     constructor(private logger: Logger, private config: Config) {
+        this.whitelistCors = this.config.app.cors
         this.app = express()
         this.plugins()
         this.ping()
     }
 
-    private isValidCors = (origin: string | undefined) => {
-        if (!origin) return false
+    private loadCors() {
+        return cors({
+            origin: function (origin, callback) {
+                const whitelist = config.app.cors
+                const isValidCors = (origin?: string) => {
+                    if (!origin) return false
 
-        for (const value of this.whitelistCors) {
-            if (value.test(origin)) {
-                return true
-            }
-        }
+                    for (const value of whitelist) {
+                        if (value.test(origin)) {
+                            return true
+                        }
+                    }
 
-        return false
-    }
+                    return false
+                }
 
-    private configCors(
-        origin: string | undefined,
-        callback: (err: Error | null, origin?: boolean) => void
-    ) {
-        if (this.whitelistCors.length === 0 || this.isValidCors(origin)) {
-            return callback(null, true)
-        }
+                if (whitelist.length === 0 || isValidCors(origin)) {
+                    return callback(null, true)
+                }
 
-        callback(new error(statusCode.FORBIDDEN, 'Not allowed by CORS'))
+                return callback(
+                    new error(statusCode.FORBIDDEN, 'Not allowed by CORS')
+                )
+            },
+        })
     }
 
     private plugins() {
-        this.app.use(
-            cors({
-                origin: this.configCors,
-            })
-        )
+        this.app.use(this.loadCors())
         this.app.use(bodyParser.urlencoded({ extended: false }))
         this.app.use(bodyParser.json())
         this.app.use(helmet())
