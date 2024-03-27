@@ -1,5 +1,5 @@
 import { Express } from 'express'
-import main from '../../main'
+import main from '../../app'
 import request from 'supertest'
 import statusCode from '../../pkg/statusCode'
 import { Sequelize } from 'sequelize'
