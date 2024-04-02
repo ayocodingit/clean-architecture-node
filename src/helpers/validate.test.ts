@@ -8,6 +8,8 @@ import {
     ValidateParams,
 } from './validate'
 
+const password = Date.now().toString()
+
 describe('test all function in file Validate', () => {
     const schema = Joi.object({
         username: Joi.string().required(),
@@ -16,7 +18,7 @@ describe('test all function in file Validate', () => {
     it('test function validate no error', () => {
         const { value, errors } = Validate(schema, {
             username: 'test',
-            password: 'test',
+            password,
         })
         expect(value).toEqual(
             expect.objectContaining({
@@ -29,12 +31,12 @@ describe('test all function in file Validate', () => {
     })
     it('test function validate with error username not defined', () => {
         const { errors, value } = Validate(schema, {
-            password: 'test',
+            password,
         })
 
         expect(value).toEqual(
             expect.objectContaining({
-                password: 'test',
+                password,
             })
         )
 
@@ -48,7 +50,7 @@ describe('test all function in file Validate', () => {
     it('test function ValidateFormRequest', () => {
         const value = ValidateFormRequest(schema, {
             username: 'test',
-            password: 'test',
+            password,
         })
 
         expect(value).toEqual(
@@ -62,7 +64,7 @@ describe('test all function in file Validate', () => {
     it('test function validate From Request with error username not defined', () => {
         try {
             ValidateFormRequest(schema, {
-                password: 'test',
+                password,
             })
         } catch (error) {
             expect(error).toHaveProperty('message', expect.any(String))
