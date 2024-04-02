@@ -6,7 +6,7 @@
     "scripts": {
         "start:dev": "npx nodemon",
         "build": "rimraf ./build && tsc",
-        "start": "node build/src/main.js",
+        "start": "node build/src/app.js",
         "lint": "npx prettier --check ./src",
         "lint:fix": "npx prettier --write ./src",
         "cron:run": "node build/src/cron/$npm_config_name.cron",

@@ -21,6 +21,9 @@ const config: Config = {
         log: env.APP_LOG,
         cors,
     },
+    file: {
+        max: Number(env.FILE_MAX) * 1024 * 1024, // MB
+    },
     db: {
         connection: env.DB_CONNECTION,
         host: env.DB_HOST,

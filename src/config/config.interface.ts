@@ -8,6 +8,9 @@ export interface Config {
         log: string
         cors: RegExp[]
     }
+    file: {
+        max: number
+    }
     db: {
         connection: string
         host: string

@@ -156,7 +156,12 @@ class Http {
     }
 
     public Upload(fieldName: string) {
-        const upload = multer({ dest: this.dest })
+        const upload = multer({
+            dest: this.dest,
+            limits: {
+                fileSize: this.config.file.max,
+            },
+        })
         return upload.single(fieldName)
     }
 

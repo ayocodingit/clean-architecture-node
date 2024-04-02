@@ -38,7 +38,7 @@ class Post {
     private httpPublic(handler: Handler, http: Http) {
         const Router = http.Router()
 
-        Router.get('/', handler.Fetch() as RequestHandler)
+        Router.get('/', handler.Fetch as RequestHandler)
 
         http.SetRouter('/v1/public/posts/', Router)
     }
@@ -49,7 +49,7 @@ class Post {
 
         const auth = VerifyAuth(jwt)
 
-        Router.post('/', handler.Store() as RequestHandler)
+        Router.post('/', handler.Store as RequestHandler)
 
         http.SetRouter('/v1/posts/', auth, Router)
     }

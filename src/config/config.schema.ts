@@ -8,6 +8,7 @@ export default Joi.object({
     APP_PORT_HTTP: Joi.number().required(),
     APP_LOG: Joi.string().valid('info', 'error', 'warn', 'debug').required(),
     APP_CORS: Joi.string().optional().default(''),
+    FILE_MAX: Joi.number().optional().default(10), // MB
     DB_CONNECTION: Joi.string()
         .valid('mysql', 'postgres', 'mongo')
         .default('mongo'),
