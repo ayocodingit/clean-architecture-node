@@ -1,7 +1,7 @@
 type RequestMeta = {
     page: number
     offset: number
-    limit: number
+    per_page: number
 }
 
 type RequestDefault = {
@@ -16,9 +16,9 @@ export type RequestParams<T> = RequestDefault & RequestMeta & T
 export const GetRequest = <T = any>(
     query: RequestParams<T>
 ): RequestParams<T> => {
-    const limit = Number(query.limit) || 10
+    const per_page = Number(query.per_page) || 10
     const page = Number(query.page) || 1
-    const offset = limit * (page - 1)
+    const offset = per_page * (page - 1)
     let { q, sort_order, order_by } = query
 
     if (!['asc', 'desc'].includes(order_by)) {
@@ -29,7 +29,7 @@ export const GetRequest = <T = any>(
         ...query,
         page,
         offset,
-        limit,
+        per_page,
         sort_order,
         order_by,
         keyword: q,
@@ -39,12 +39,15 @@ export const GetRequest = <T = any>(
 }
 
 export const GetMeta = (request: RequestMeta, count: number) => {
+    const last_page = Math.ceil(count / request.per_page)
     return {
-        page: request.page,
-        last_page: Math.ceil(count / request.limit),
-        limit: request.limit,
+        current_page: request.page,
+        last_page,
+        per_page: request.per_page,
         from: request.offset + 1,
-        to: request.page * request.limit,
+        to: request.page * request.per_page,
         total: count,
+        has_next: request.page < last_page,
+        has_prev: request.offset > 1,
     }
 }

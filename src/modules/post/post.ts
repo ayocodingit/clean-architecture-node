@@ -14,7 +14,7 @@ import { RequestHandler } from 'express'
 // import Mongo from '../../database/mongo/mongo'
 
 class Post {
-    private usecase: Usecase
+    public usecase: Usecase
 
     constructor(
         private logger: Logger,

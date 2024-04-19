@@ -1,0 +1,6 @@
+{
+    "exists": "{{attribute}} sudah terpakai.",
+    "message": "message.",
+    "not_valid": "{{attribute}} tidak valid.",
+    "not_exists": "{{attribute}} tidak tersedia."
+}

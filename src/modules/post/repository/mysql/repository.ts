@@ -16,7 +16,7 @@ class Repository implements SchemaRepository {
         request: RequestParams<RequestQueryFetch>
     ): Promise<Fetch> {
         const { count, rows } = await this.schema.post.findAndCountAll({
-            limit: request.limit,
+            limit: request.per_page,
             offset: request.offset,
         })
 

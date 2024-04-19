@@ -17,7 +17,7 @@ class Repository implements SchemaRepository {
     ): Promise<Fetch> {
         const data = await this.schema.post
             .find()
-            .limit(request.limit)
+            .limit(request.per_page)
             .skip(request.offset)
         const count = await this.schema.post.count()
         return {

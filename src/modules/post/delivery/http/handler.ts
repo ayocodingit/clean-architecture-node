@@ -1,7 +1,7 @@
 import Http from '../../../../transport/http/http'
 import Logger from '../../../../pkg/logger'
 import Usecase from '../../usecase/usecase'
-import { NextFunction, RequestHandler, Response } from 'express'
+import { NextFunction, Response } from 'express'
 import statusCode from '../../../../pkg/statusCode'
 import { GetMeta, GetRequest } from '../../../../helpers/requestParams'
 import { ValidateFormRequest } from '../../../../helpers/validate'
