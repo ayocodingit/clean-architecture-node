@@ -26,10 +26,8 @@ type responseError = {
 class Http {
     public app: Express
     public dest: string = '.'
-    private whitelistCors: RegExp[]
 
     constructor(private logger: Logger, private config: Config) {
-        this.whitelistCors = this.config.app.cors
         this.app = express()
         this.plugins()
         this.ping()
