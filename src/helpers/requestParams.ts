@@ -5,7 +5,7 @@ type RequestMeta = {
 }
 
 type RequestDefault = {
-    order_by: string
+    sort_by: string
     sort_order: string
     keyword: string
     q: string
@@ -19,10 +19,10 @@ export const GetRequest = <T = any>(
     const per_page = Number(query.per_page) || 10
     const page = Number(query.page) || 1
     const offset = per_page * (page - 1)
-    let { q, sort_order, order_by } = query
+    let { q, sort_order, sort_by } = query
 
-    if (!['asc', 'desc'].includes(order_by)) {
-        order_by = 'asc'
+    if (!['asc', 'desc'].includes(sort_order)) {
+        sort_order = 'asc'
     }
 
     const request: RequestParams<T> = {
@@ -31,7 +31,7 @@ export const GetRequest = <T = any>(
         offset,
         per_page,
         sort_order,
-        order_by,
+        sort_by,
         keyword: q,
     }
 

@@ -84,6 +84,12 @@ class Http {
         _: NextFunction
     ) => {
         const resp: responseError = {}
+        if (
+            error instanceof multer.MulterError &&
+            error.code === 'LIMIT_FILE_SIZE'
+        ) {
+            error.status = statusCode.REQUEST_ENTITY_TOO_LARGE
+        }
         const code = Number(error.status) || statusCode.INTERNAL_SERVER_ERROR
         resp.error =
             error.message || statusCode[statusCode.INTERNAL_SERVER_ERROR]

@@ -2,8 +2,8 @@ import lang from '../pkg/lang'
 
 export const Translate = (
     key: string,
-    args: Record<string, string>,
-    locale?: 'en' | 'id'
+    args: Record<string, string> = {},
+    locale: 'en' | 'id' = 'id'
 ) => {
     lang.setLocale(locale || lang.getLocale())
 
