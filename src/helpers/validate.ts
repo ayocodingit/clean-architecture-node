@@ -4,19 +4,36 @@ import statusCode from '../pkg/statusCode'
 import { Translate } from './translate'
 import { isValidObjectId } from './mongoose'
 
-const getValidationErrors = (validationErrors: Joi.ValidationErrorItem[]) => {
+const getValidationErrors = (
+    validationErrors: Joi.ValidationErrorItem[],
+    locale: string
+) => {
     const errors: Record<string, string> = {}
-
     validationErrors.forEach((item) => {
-        const { path, message } = item
-        const key = path.join('.')
-        errors[key] = message
+        const { path, message, type, context } = item
+
+        const valid = context?.valids?.join(', ')
+        const key = context?.label as string
+        const attribute = path[path.length - 1].toString()
+        const regex = context?.regex as string
+        const limit = context?.limit as string
+
+        console.log(type);
+        
+
+        errors[key] = !locale
+            ? message
+            : Translate(type, { attribute, limit, valid, regex })
     })
 
     return errors
 }
 
-export const Validate = <T = any>(schema: Joi.Schema<T>, values: any) => {
+export const Validate = <T = any>(
+    schema: Joi.Schema<T>,
+    values: any,
+    locale: string = ''
+) => {
     const { error, value } = schema.validate(values, {
         abortEarly: false,
         stripUnknown: true,
@@ -36,16 +53,17 @@ export const Validate = <T = any>(schema: Joi.Schema<T>, values: any) => {
     }
 
     return {
-        errors: getValidationErrors(error.details),
+        errors: getValidationErrors(error.details, locale),
         value,
     }
 }
 
 export const ValidateFormRequest = <T = any>(
     schema: Joi.Schema<T>,
-    values: any
+    values: any,
+    locale: string = ''
 ) => {
-    const { errors, value } = Validate(schema, values)
+    const { errors, value } = Validate(schema, values, locale)
 
     if (errors) {
         throw new error(
@@ -58,8 +76,12 @@ export const ValidateFormRequest = <T = any>(
     return value
 }
 
-export const ValidateParams = <T = any>(schema: Joi.Schema<T>, values: any) => {
-    const { errors, value } = Validate(schema, values)
+export const ValidateParams = <T = any>(
+    schema: Joi.Schema<T>,
+    values: any,
+    locale: string = ''
+) => {
+    const { errors, value } = Validate(schema, values, locale)
 
     if (errors) {
         throw new error(statusCode.BAD_REQUEST, errors[''])
