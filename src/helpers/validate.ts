@@ -18,8 +18,6 @@ const getValidationErrors = (
         const regex = context?.regex as string
         const limit = context?.limit as string
 
-        console.log(type);
-        
 
         errors[key] = !locale
             ? message

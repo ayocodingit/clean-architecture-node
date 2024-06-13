@@ -6,21 +6,18 @@ import { Connection } from './interface'
 
 class Mongo {
     public static async Connect(logger: Logger, { db }: Config) {
+        const uri =
+            db.uri ||
+            `mongodb://${db.username}:${db.password}@${db.host}:${db.port}/${db.name}?authSource=${db.auth_source}`
         mongoose.set('strictQuery', false)
         try {
-            await mongoose.connect(
-                `mongodb://${db.host}:${db.port}/${db.name}`,
-                {
-                    authSource: db.auth_source,
-                    pass: db.password,
-                    user: db.username,
-                    keepAlive: db.keep_alive,
-                    maxPoolSize: db.pool.max,
-                    minPoolSize: db.pool.min,
-                    maxIdleTimeMS: db.pool.idle,
-                    keepAliveInitialDelay: db.pool.acquire,
-                }
-            )
+            await mongoose.connect(uri, {
+                keepAlive: db.keep_alive,
+                maxPoolSize: db.pool.max,
+                minPoolSize: db.pool.min,
+                maxIdleTimeMS: db.pool.idle,
+                keepAliveInitialDelay: db.pool.acquire,
+            })
             logger.Info('MongoDB connection to database established')
             const connection = mongoose.connection
             return connection

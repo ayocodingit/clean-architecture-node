@@ -13,6 +13,7 @@ export interface Config {
     }
     db: {
         connection: string
+        uri: string
         host: string
         port: number
         username: string

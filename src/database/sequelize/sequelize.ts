@@ -5,27 +5,18 @@ import Post from './schemas/post.schema'
 import { Connection } from './interface'
 
 class Sequalize {
-    public static async Connect(config: Config, logger: Logger) {
-        const {
-            name,
-            username,
-            password,
-            host,
-            connection: dialect,
-            pool,
-            port,
-        } = config.db
+    public static async Connect({ db }: Config, logger: Logger) {
+        const uri =
+            db.uri ||
+            `${db.connection}://${db.username}:${db.password}@${db.host}:${db.port}/${db.name}`
 
-        const connection = new createConnection(name, username, password, {
-            host,
-            dialect: dialect as Dialect,
-            port,
+        const connection = new createConnection(uri, {
             logging: false,
             pool: {
-                min: pool.min,
-                max: pool.max,
-                acquire: pool.acquire,
-                idle: pool.idle,
+                min: db.pool.min,
+                max: db.pool.max,
+                acquire: db.pool.acquire,
+                idle: db.pool.idle,
             },
         })
 

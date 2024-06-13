@@ -12,11 +12,12 @@ export default Joi.object({
     DB_CONNECTION: Joi.string()
         .valid('mysql', 'postgres', 'mongo')
         .default('mongo'),
-    DB_HOST: Joi.string().required(),
-    DB_PORT: Joi.number().required(),
-    DB_USERNAME: Joi.string().required(),
-    DB_PASSWORD: Joi.string().required(),
-    DB_NAME: Joi.string().required(),
+    DB_URI: Joi.string().uri().optional(),
+    DB_HOST: Joi.string().optional(),
+    DB_PORT: Joi.number().optional(),
+    DB_USERNAME: Joi.string().optional(),
+    DB_PASSWORD: Joi.string().optional(),
+    DB_NAME: Joi.string().optional(),
     DB_AUTH_SOURCE: Joi.string().when('DB_CONNECTION', {
         is: 'mongo',
         then: Joi.required(),

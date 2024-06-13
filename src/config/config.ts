@@ -26,6 +26,7 @@ const config: Config = {
     },
     db: {
         connection: env.DB_CONNECTION,
+        uri: env.DB_URI,
         host: env.DB_HOST,
         port: env.DB_PORT,
         username: env.DB_USERNAME,
