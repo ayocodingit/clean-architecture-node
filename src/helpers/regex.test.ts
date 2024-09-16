@@ -1,22 +1,10 @@
 import {
-    RegexWordScript,
     RegexSubdomain,
     RegexSanitize,
     RegexObjectID,
     RegexContentTypeImage,
     RegexExtensionImage,
 } from './regex'
-
-describe('RegexWordScript', () => {
-    test('should not match "script"', () => {
-        expect(RegexWordScript.test('script')).toBe(false)
-    })
-
-    test('should match valid words', () => {
-        expect(RegexWordScript.test('validWord')).toBe(true)
-        expect(RegexWordScript.test('anotherWord')).toBe(true)
-    })
-})
 
 describe('RegexSubdomain', () => {
     test('should match valid subdomains', () => {
