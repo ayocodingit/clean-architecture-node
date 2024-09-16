@@ -41,6 +41,7 @@ jobs:
           echo DB_PASSWORD='test' >> .env
           echo DB_CONNECTION='mysql' >> .env
           echo DB_NAME='test' >> .env
+          echo JWT_ACCESS_SECRET='test' >> .env
           cat .env
 
       - name: Run build
