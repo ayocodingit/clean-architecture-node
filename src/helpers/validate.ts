@@ -3,6 +3,34 @@ import error from '../pkg/error'
 import statusCode from '../pkg/statusCode'
 import { Translate } from './translate'
 import { isValidObjectId } from './mongoose'
+import {
+    RegexAlphabet,
+    RegexObjectID,
+    RegexSanitize,
+    RegexSubdomain,
+} from './regex'
+
+const getSourceRegex = (regex: RegExp) => {
+    let source = ''
+
+    switch (regex) {
+        case RegexSanitize:
+            source = 'RegexSanitize'
+            break
+        case RegexAlphabet:
+            source = 'RegexAlphabet'
+            break
+        case RegexObjectID:
+            source = 'RegexObjectID'
+            break
+        case RegexSubdomain:
+            source = 'RegexSubdomain'
+            break
+        // Other Regex for replace on Translate
+    }
+
+    return source
+}
 
 const getValidationErrors = (
     validationErrors: Joi.ValidationErrorItem[],
@@ -10,17 +38,22 @@ const getValidationErrors = (
 ) => {
     const errors: Record<string, string> = {}
     validationErrors.forEach((item) => {
-        const { path, message, type, context } = item
+        const { path, message, context } = item
 
+        let type = item.type
         const valid = context?.valids?.join(', ')
         const key = context?.label as string
-        const attribute = path[path.length - 1].toString()
-        const regex = context?.regex as string
+        const getIndexPath = typeof path[path.length - 1] === 'string' ? 1 : 2
+        const attribute = path[path.length - getIndexPath]?.toString()
+        const regex = context?.regex
         const limit = context?.limit as string
 
-        errors[key] = !locale
-            ? message
-            : Translate(type, { attribute, limit, valid, regex })
+        if (regex) type = getSourceRegex(regex)
+
+        errors[key] =
+            locale && type
+                ? Translate(type, { attribute, limit, valid, regex })
+                : message
     })
 
     return errors
@@ -73,15 +106,11 @@ export const ValidateFormRequest = <T = any>(
     return value
 }
 
-export const ValidateParams = <T = any>(
-    schema: Joi.Schema<T>,
-    values: any,
-    locale: string = ''
-) => {
-    const { errors, value } = Validate(schema, values, locale)
+export const ValidateParams = <T = any>(schema: Joi.Schema<T>, values: any) => {
+    const { errors, value } = Validate(schema, values)
 
     if (errors) {
-        throw new error(statusCode.BAD_REQUEST, errors[''])
+        throw new error(statusCode.BAD_REQUEST, errors.value)
     }
 
     return value
@@ -91,7 +120,7 @@ export const ValidateObjectId = (id: string, attribute: string) => {
     if (!isValidObjectId(id)) {
         throw new error(
             statusCode.BAD_REQUEST,
-            Translate('not_valid', { attribute })
+            Translate('object_id', { attribute })
         )
     }
 
