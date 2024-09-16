@@ -12,6 +12,8 @@ This boilerplate provides a foundation for Node.js applications using Clean Arch
 
 Open Source for you to make app powerful and high scalability. you can read about [license](https://github.com/ayocodingit/clean-architecture-node/blob/main/LICENSE)
 
+and if you experience difficulties when using this framework, please write in the issue repo or send email ayocodingit@gmail.com
+
 ## Tech Stack
 
 - Node.js v14
