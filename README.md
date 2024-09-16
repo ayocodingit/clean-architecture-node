@@ -9,7 +9,8 @@ This boilerplate provides a foundation for Node.js applications using Clean Arch
 <a href="https://codeclimate.com/github/ayocodingit/boilerplate-clean-architecture/test_coverage"><img src="https://api.codeclimate.com/v1/badges/12c10806992f9baa009f/test_coverage" /></a>
 
 ## License
-Open Source for you to make app powerful and high scalability. you can read in [here](https://github.com/ayocodingit/clean-architecture-node/blob/main/LICENSE) about license
+
+Open Source for you to make app powerful and high scalability. you can read about [license](https://github.com/ayocodingit/clean-architecture-node/blob/main/LICENSE)
 
 ## Tech Stack
 
