@@ -1,4 +1,4 @@
-export interface Config {
+export type Config = {
     app: {
         name: string
         env: string

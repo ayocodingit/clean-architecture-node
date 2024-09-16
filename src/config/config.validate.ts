@@ -1,7 +1,7 @@
 import { Validate } from '../helpers/validate'
 import configSchema from './config.schema'
 
-export default (env: any) => {
+export default (env: Record<string, any>) => {
     const { errors, value } = Validate(configSchema, env)
 
     if (errors) {

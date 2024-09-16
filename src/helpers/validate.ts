@@ -18,7 +18,6 @@ const getValidationErrors = (
         const regex = context?.regex as string
         const limit = context?.limit as string
 
-
         errors[key] = !locale
             ? message
             : Translate(type, { attribute, limit, valid, regex })
