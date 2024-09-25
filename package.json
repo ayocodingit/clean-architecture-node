@@ -13,7 +13,7 @@
         "seed:run": "node build/src/database/seeds/$npm_config_name.seed",
         "migration:generate": "npx sequelize-cli migration:generate --name $npm_config_name --migrations-path src/database/sequelize/migrations",
         "migrate:up": "npx sequelize-cli db:migrate --config build/src/migrater.js --migrations-path build/src/database/sequelize/migrations",
-        "migrate:down": "npx sequelize-cli db:migrate:undo --config build/src/migrater.js --migrations-path build/src/database/sequelize/migrations",
+        "migrate:rollback": "npx sequelize-cli db:migrate:undo --config build/src/migrater.js --migrations-path build/src/database/sequelize/migrations",
         "test": "APP_ENV=test APP_LOG=error npx jest"
     },
     "keywords": [
