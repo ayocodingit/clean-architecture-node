@@ -97,9 +97,6 @@ class Http {
         if (error.isObject) resp.message = JSON.parse(error.message)
 
         this.logger.Error(error.message, {
-            error: {
-                message: error.message,
-            },
             additional_info: this.AdditionalInfo(req, code),
         })
 
