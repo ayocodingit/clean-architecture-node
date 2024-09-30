@@ -3,7 +3,7 @@
 ### Step by step for use Cron job:
 
 1. Create file with name pattern \*.cron.ts
-e.g post.cron.ts
+   e.g post.cron.ts
 
 ```typescript
 const Run = () => {

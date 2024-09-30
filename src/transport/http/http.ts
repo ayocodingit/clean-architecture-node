@@ -19,7 +19,7 @@ import error from '../../pkg/error'
 import config from '../../config/config'
 
 type responseError = {
-    error?: string | object
+    message?: string | object
     errors?: object
 }
 
@@ -91,10 +91,10 @@ class Http {
             error.status = statusCode.REQUEST_ENTITY_TOO_LARGE
         }
         const code = Number(error.status) || statusCode.INTERNAL_SERVER_ERROR
-        resp.error =
+        resp.message =
             error.message || statusCode[statusCode.INTERNAL_SERVER_ERROR]
 
-        if (error.isObject) resp.error = JSON.parse(error.message)
+        if (error.isObject) resp.message = JSON.parse(error.message)
 
         this.logger.Error(error.message, {
             error: {
@@ -107,12 +107,12 @@ class Http {
             code >= statusCode.INTERNAL_SERVER_ERROR &&
             this.config.app.env === 'production'
         ) {
-            resp.error = statusCode[statusCode.INTERNAL_SERVER_ERROR]
+            resp.message = statusCode[statusCode.INTERNAL_SERVER_ERROR]
         }
 
         if (code === statusCode.UNPROCESSABLE_ENTITY) {
-            resp.errors = resp.error as object
-            delete resp.error
+            resp.errors = resp.message as object
+            delete resp.message
         }
 
         return res.status(code).json(resp)
