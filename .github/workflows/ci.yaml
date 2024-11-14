@@ -47,7 +47,7 @@ jobs:
         run: npm run build
 
       - name: Run Migrate Local
-        run: npm run migrate:up
+        run: npm run migrate
         
       - name: Run Testing
         run: npm run test
