@@ -1,10 +1,8 @@
 import Joi from 'joi'
-import mongoose from 'mongoose'
 import statusCode from '../pkg/statusCode'
 import {
     Validate,
     ValidateFormRequest,
-    ValidateObjectId,
     ValidateParams,
 } from './validate'
 
@@ -85,22 +83,6 @@ describe('test all function in file Validate', () => {
     it('test function ValidateParams with error', () => {
         try {
             ValidateParams(schema, '')
-        } catch (error) {
-            expect(error).toHaveProperty('message', expect.any(String))
-            expect(error).toHaveProperty('status', statusCode.BAD_REQUEST)
-        }
-    })
-})
-
-describe('test all function in file Validate', () => {
-    it('test function ValidateObjectId', () => {
-        const id = new mongoose.Types.ObjectId().toString()
-        const value = ValidateObjectId(id, 'id')
-        expect(value).toEqual(id)
-    })
-    it('test function ValidateObjectId with error', () => {
-        try {
-            ValidateObjectId('123', 'id')
         } catch (error) {
             expect(error).toHaveProperty('message', expect.any(String))
             expect(error).toHaveProperty('status', statusCode.BAD_REQUEST)

@@ -4,9 +4,9 @@ import Logger from './logger'
 
 class Redis {
     public client: redis.RedisClientType
-    constructor(config: Config, logger: Logger) {
+    constructor({ redis }: any, logger: Logger) {
         this.client = redis.createClient({
-            url: `redis://${config.redis.host}:${config.redis.port}`,
+            url: `redis://${redis.host}:${redis.port}`,
         })
         this.client.connect().then(() => {
             logger.Info('redis connected')
