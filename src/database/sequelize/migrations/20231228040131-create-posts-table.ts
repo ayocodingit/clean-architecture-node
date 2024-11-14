@@ -1,3 +1,4 @@
+import sequelize from 'sequelize'
 import { QueryInterface, DataTypes, Sequelize } from 'sequelize'
 
 const tableName = 'posts'
@@ -8,7 +9,6 @@ export async function up(queryInterface: QueryInterface) {
             allowNull: false,
             primaryKey: true,
             type: DataTypes.UUID,
-            defaultValue: DataTypes.UUIDV4,
         },
         title: {
             type: DataTypes.STRING,
@@ -20,13 +20,11 @@ export async function up(queryInterface: QueryInterface) {
         },
         created_at: {
             type: DataTypes.DATE,
-            allowNull: true,
-            defaultValue: Sequelize.literal('CURRENT_TIMESTAMP()'),
+            defaultValue: sequelize.fn('NOW'),
         },
         updated_at: {
             type: DataTypes.DATE,
-            allowNull: true,
-            defaultValue: Sequelize.literal('CURRENT_TIMESTAMP()'),
+            defaultValue: sequelize.fn('NOW'),
         },
     })
 

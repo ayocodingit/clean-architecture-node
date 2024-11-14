@@ -6,11 +6,6 @@ dotenv.config()
 
 const env = configValidate(process.env)
 
-// split and convert cors to Regex
-const cors = env.APP_CORS
-    ? env.APP_CORS.split(',').map((value: string) => new RegExp(value))
-    : []
-
 const config: Config = {
     app: {
         name: env.APP_NAME,
@@ -19,10 +14,11 @@ const config: Config = {
             http: env.APP_PORT_HTTP,
         },
         log: env.APP_LOG,
-        cors,
+        prefix: env.APP_PREFIX,
     },
     file: {
         max: Number(env.FILE_MAX) * 1024 * 1024, // MB
+        uri: env.FILE_URI,
     },
     db: {
         connection: env.DB_CONNECTION,
@@ -32,7 +28,6 @@ const config: Config = {
         username: env.DB_USERNAME,
         password: env.DB_PASSWORD,
         name: env.DB_NAME,
-        auth_source: env.DB_AUTH_SOURCE,
         pool: {
             min: env.DB_POOL_MIN,
             max: env.DB_POOL_MAX,
@@ -44,11 +39,6 @@ const config: Config = {
     jwt: {
         access_key: env.JWT_ACCESS_SECRET,
         algorithm: env.JWT_ALGORITHM,
-    },
-    redis: {
-        host: env.REDIS_HOST,
-        port: env.REDIS_PORT,
-        ttl: env.REDIS_TTL,
     },
 }
 

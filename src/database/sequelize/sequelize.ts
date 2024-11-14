@@ -1,17 +1,19 @@
 import { Config } from '../../config/config.interface'
 import Logger from '../../pkg/logger'
 import { Sequelize as createConnection, Dialect, Op } from 'sequelize'
-import Post from './schemas/post.schema'
+import Post from './models/post'
 import { Connection } from './interface'
 
 class Sequalize {
     public static async Connect({ db }: Config, logger: Logger) {
-        const uri =
-            db.uri ||
-            `${db.connection}://${db.username}:${db.password}@${db.host}:${db.port}/${db.name}`
-
-        const connection = new createConnection(uri, {
+        const connection = new createConnection({
             logging: false,
+            dialect: db.connection as Dialect,
+            username: db.username,
+            password: db.password,
+            host: db.host,
+            port: db.port,
+            database: db.name,
             pool: {
                 min: db.pool.min,
                 max: db.pool.max,
@@ -23,16 +25,16 @@ class Sequalize {
         try {
             await connection.authenticate()
             logger.Info('Sequelize connection to database established')
-        } catch (error) {
-            logger.Error('Sequelize connection error:', error)
+        } catch (error: any) {
+            logger.Error('Sequelize connection error: ' + error.message)
             process.exit(-1)
         }
 
         return connection
     }
 
-    public static Schema = (connection: Connection) => {
-        // load all schema on folder schemas
+    public static Models = (connection: Connection) => {
+        // load all model on folder models
         const post = Post(connection)
 
         // setup relation for eager loader in here
@@ -46,6 +48,10 @@ class Sequalize {
             connection,
             Op,
         }
+    }
+
+    public static Disconnect = (connection: Connection) => {
+        return connection.close()
     }
 }
 

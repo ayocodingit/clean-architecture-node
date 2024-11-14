@@ -9,9 +9,6 @@ import { Connection } from '../../database/sequelize/interface'
 import Repository from './repository/mysql/repository'
 import Sequelize from '../../database/sequelize/sequelize'
 import { RequestHandler } from 'express'
-// import { Connection } from '../../database/mongo/interface'
-// import Repository from './repository/mongo/repository'
-// import Mongo from '../../database/mongo/mongo'
 
 class Post {
     public usecase: Usecase
@@ -21,9 +18,7 @@ class Post {
         private config: Config,
         connection: Connection
     ) {
-        // const schema = Mongo.Schema(connection)
-        // const repository = new Repository(logger, schema)
-        const schema = Sequelize.Schema(connection)
+        const schema = Sequelize.Models(connection)
         const repository = new Repository(logger, schema)
         this.usecase = new Usecase(logger, repository)
     }

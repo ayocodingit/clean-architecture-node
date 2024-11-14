@@ -41,7 +41,6 @@ jobs:
           echo DB_PASSWORD='test' >> .env
           echo DB_CONNECTION='mysql' >> .env
           echo DB_NAME='test' >> .env
-          echo JWT_ACCESS_SECRET='test' >> .env
           cat .env
 
       - name: Run build
@@ -53,9 +52,9 @@ jobs:
       - name: Run Testing
         run: npm run test
 
-      - name: Set Up Codeclimate and Send Report Codeclimate
-        uses: paambaati/codeclimate-action@v2.7.5
-        env:
-          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORT_ID }}
-        with:
-          coverageLocations: coverage/lcov.info:lcov
+      # - name: Set Up Codeclimate and Send Report Codeclimate
+      #   uses: paambaati/codeclimate-action@v2.7.5
+      #   env:
+      #     CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORT_ID }}
+      #   with:
+      #     coverageLocations: coverage/lcov.info:lcov

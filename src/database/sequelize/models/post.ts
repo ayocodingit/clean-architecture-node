@@ -12,22 +12,16 @@ const Post = (connection: Connection) => {
             },
             title: {
                 type: DataTypes.STRING,
+                allowNull: false,
             },
             description: {
                 type: DataTypes.STRING,
             },
-            created_at: {
-                type: DataTypes.DATE,
-                defaultValue: new Date(),
-            },
-            updated_at: {
-                type: DataTypes.DATE,
-                allowNull: false,
-                defaultValue: new Date(),
-            },
         },
         {
-            timestamps: false,
+            timestamps: true,
+            createdAt: 'created_at',
+            updatedAt: 'updated_at',
         }
     )
 }

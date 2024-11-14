@@ -6,10 +6,11 @@ export type Config = {
             http: number
         }
         log: string
-        cors: RegExp[]
+        prefix: string
     }
     file: {
         max: number
+        uri: string
     }
     db: {
         connection: string
@@ -19,7 +20,6 @@ export type Config = {
         username: string
         password: string
         name: string
-        auth_source: string
         pool: {
             min: number
             max: number
@@ -31,10 +31,5 @@ export type Config = {
     jwt: {
         access_key: string
         algorithm: string
-    }
-    redis: {
-        host: string
-        port: number
-        ttl: number
     }
 }

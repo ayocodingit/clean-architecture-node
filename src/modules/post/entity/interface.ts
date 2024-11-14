@@ -1,5 +1,4 @@
 import { Post } from '../../../database/entity'
-import { RequestParams } from '../../../helpers/requestParams'
 
 // define for type data
 export type RequestBody = {
@@ -17,9 +16,3 @@ export type Fetch = {
 }
 
 export type Store = Post
-
-// define for type Schema for Repository
-export type SchemaRepository = {
-    Fetch(request: RequestParams<RequestQueryFetch>): Promise<Fetch>
-    Store(body: RequestBody): Promise<Store>
-}

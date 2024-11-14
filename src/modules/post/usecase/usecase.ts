@@ -1,7 +1,6 @@
 import { RequestParams } from '../../../helpers/requestParams'
 import Logger from '../../../pkg/logger'
 import { RequestBody, RequestQueryFetch } from '../entity/interface'
-// import Repository from '../repository/mongo/repository'
 import Repository from '../repository/mysql/repository'
 
 class Usecase {

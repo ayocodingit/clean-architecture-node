@@ -1,7 +1,6 @@
 import Logger from '../../../../pkg/logger'
 import { RequestParams } from '../../../../helpers/requestParams'
 import {
-    SchemaRepository,
     RequestBody,
     RequestQueryFetch,
     Fetch,
@@ -9,7 +8,7 @@ import {
 } from '../../entity/interface'
 import { Schema } from '../../../../database/sequelize/interface'
 
-class Repository implements SchemaRepository {
+class Repository {
     constructor(private logger: Logger, private schema: Schema) {}
 
     public async Fetch(

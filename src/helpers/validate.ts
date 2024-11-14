@@ -2,7 +2,6 @@ import Joi from 'joi'
 import error from '../pkg/error'
 import statusCode from '../pkg/statusCode'
 import { Translate } from './translate'
-import { isValidObjectId } from './mongoose'
 import {
     RegexAlphabet,
     RegexObjectID,
@@ -114,15 +113,4 @@ export const ValidateParams = <T = any>(schema: Joi.Schema<T>, values: any) => {
     }
 
     return value
-}
-
-export const ValidateObjectId = (id: string, attribute: string) => {
-    if (!isValidObjectId(id)) {
-        throw new error(
-            statusCode.BAD_REQUEST,
-            Translate('object_id', { attribute })
-        )
-    }
-
-    return id
 }

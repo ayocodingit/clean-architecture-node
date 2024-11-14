@@ -15,8 +15,6 @@ import Error from '../../pkg/error'
 import multer from 'multer'
 import Logger from '../../pkg/logger'
 import rateLimit from 'express-rate-limit'
-import error from '../../pkg/error'
-import config from '../../config/config'
 
 type responseError = {
     message?: string | object
@@ -33,35 +31,8 @@ class Http {
         this.ping()
     }
 
-    private loadCors() {
-        return cors({
-            origin: function (origin, callback) {
-                const whitelist = config.app.cors
-                const isValidCors = (origin?: string) => {
-                    if (!origin) return false
-
-                    for (const value of whitelist) {
-                        if (value.test(origin)) {
-                            return true
-                        }
-                    }
-
-                    return false
-                }
-
-                if (whitelist.length === 0 || isValidCors(origin)) {
-                    return callback(null, true)
-                }
-
-                return callback(
-                    new error(statusCode.FORBIDDEN, 'Not allowed by CORS')
-                )
-            },
-        })
-    }
-
     private plugins() {
-        this.app.use(this.loadCors())
+        this.app.use(cors())
         this.app.use(bodyParser.urlencoded({ extended: false }))
         this.app.use(bodyParser.json())
         this.app.use(helmet())
@@ -142,18 +113,21 @@ class Http {
     }
 
     public SetRouter(prefix: string, ...router: RequestHandler[]) {
-        this.app.use(prefix, router)
+        this.app.use(this.config.app.prefix + prefix, router)
     }
 
     private ping = () => {
-        this.app.get('/', (req: Request, res: Response) => {
-            this.logger.Info('OK', {
-                additional_info: this.AdditionalInfo(req, res.statusCode),
-            })
-            return res.json({
-                app_name: this.config.app.name,
-            })
-        })
+        this.app.get(
+            this.config.app.prefix + '/',
+            (req: Request, res: Response) => {
+                this.logger.Info('OK', {
+                    additional_info: this.AdditionalInfo(req, res.statusCode),
+                })
+                return res.json({
+                    app_name: this.config.app.name,
+                })
+            }
+        )
     }
 
     public Upload(fieldName: string) {
