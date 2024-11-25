@@ -2,7 +2,7 @@
 
 ![Node.js Logo](https://nodejs.org/static/images/logo.svg)
 
-This boilerplate provides a foundation for Node.js applications using Clean Architecture principles. It utilizes a tech stack including Mongoose, Sequelize, TypeScript, and Docker. The default HTTP framework is Express.
+This boilerplate provides a foundation for Node.js applications using Clean Architecture principles. It utilizes a tech stack including Sequelize, TypeScript, and Docker. The default HTTP framework is Express.
 
 [![GitHub Repository](https://img.shields.io/badge/GitHub-Repository-blue?logo=github)](https://github.com/ayocodingit/boilerplate-clean-architecture)
 <a href="https://codeclimate.com/github/ayocodingit/boilerplate-clean-architecture/maintainability"><img src="https://api.codeclimate.com/v1/badges/12c10806992f9baa009f/maintainability" /></a>
@@ -14,8 +14,7 @@ Open Source for you to make app powerful and high scalability, and if you experi
 
 ## Tech Stack
 
-- Node.js v14
-- Mongoose (MongoDB ODM)
+- Node.js v18.20.4
 - Sequelize (SQL ORM)
 - TypeScript
 - Docker
@@ -115,38 +114,38 @@ docker run -p 3000:3000 -d your-image-name
 - **Database Migration:**
   - Run migrations:
     ```bash
-    npm run migrate:up
+    npm run migrate
     ```
   - Rollback migrations:
     ```bash
-    npm run migrate:down
+    npm run migrate:rollback
     ```
 
 - **Local Database Migration (development):**
   - Generate migration file:
     ```bash
-    npm run migration:generate --name your-migration-name
+    npm run migration:generate --name=your-migration-name
     ```
   - Run migrations:
     ```bash
-    npm run migrate:up:local
+    npm run build && npm run migrate
     ```
   - Rollback migrations:
     ```bash
-    npm run migrate:down:local
+    npm run build && npm run migrate:rollback
     ```
 
 - **Seed:**
   - Run Seed:
     ```bash
-    npm run seed:run --name your-seed-filename
+    npm run seed:run --name=your-seed-filename
     ```
 
 
 - **Cron:**
   - Run Cron:
     ```bash
-    npm run seed:run --name your-cron-filename
+    npm run seed:run --name=your-cron-filename
     ```
 
 - **Testing:**
