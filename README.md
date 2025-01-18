@@ -157,26 +157,30 @@ docker run -p 3000:3000 -d your-image-name
 ## Folder Structure Modules
 
 ```bash
-modules/
-└── name module/
-    ├── delivery/
-    │   ├── http/
-    │   │   └── handler.ts
-    │   ├── grpc/
-    │   │   └── handler.ts
-    │   └── graphQL/
-    │       └── handler.ts
-    ├── entity/
-    │   ├── interface.ts // for the core business entities
-    │   └── schema.ts // for the schema validation
-    ├── repository/
-    │   ├── mongo/
-    │   │   └── repository.ts
-    │   ├── mySQL/
-    │   │   └── repository.ts
-    │   └── postgreSQL/
-    │       └── repository.ts
-    ├── usecase/
-    │   └── usecase.ts
-    └── name module.ts // for init the module to load in the main
+.
+└── modules/
+    ├── name module/
+    │   ├── delivery/
+    │   │   ├── http/
+    │   │   │   └── handler.ts
+    │   │   ├── grpc/
+    │   │   │   └── handler.ts
+    │   │   ├── websocket/
+    │   │   │   └── handler.ts
+    │   │   └── graphql/
+    │   │       └── handler.ts
+    │   ├── entity/
+    │   │   ├── interface.ts // type of data interface
+    │   │   └── schema.ts // schema validation
+    │   ├── repository/
+    │   │   ├── mongo/
+    │   │   │   └── repository.ts
+    │   │   ├── mySQL/
+    │   │   │   └── repository.ts
+    │   │   └── postgreSQL/
+    │   │       └── repository.ts
+    │   ├── usecase/
+    │   │   └── usecase.ts // logic business
+    │   └── name module.ts // for init the module to add in the main.ts
+    └── other module
 ```
