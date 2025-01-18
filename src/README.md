@@ -1,3 +1,5 @@
+```
+.
 ├── config
 │   ├── config.interface.ts // type of config
 │   ├── config.schema.ts // schema validation
@@ -24,3 +26,4 @@
 │       └── grapql.ts
 ├── main.ts // execution server
 └── migration.ts // config database for running migration
+```
