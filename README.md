@@ -154,33 +154,8 @@ docker run -p 3000:3000 -d your-image-name
     npm test
     ```
 
-## Folder Structure Modules
+## Folder Structure
+- [src/](https://github.com/ayocodingit/clean-architecture-node/blob/main/src/README.md) 
+  - [modules/](https://github.com/ayocodingit/clean-architecture-node/blob/main/src/modules/README.md)
 
-```bash
-.
-└── modules/
-    ├── name module/
-    │   ├── delivery/
-    │   │   ├── http/
-    │   │   │   └── handler.ts
-    │   │   ├── grpc/
-    │   │   │   └── handler.ts
-    │   │   ├── websocket/
-    │   │   │   └── handler.ts
-    │   │   └── graphql/
-    │   │       └── handler.ts
-    │   ├── entity/
-    │   │   ├── interface.ts // type of data interface
-    │   │   └── schema.ts // schema validation
-    │   ├── repository/
-    │   │   ├── mongo/
-    │   │   │   └── repository.ts
-    │   │   ├── mySQL/
-    │   │   │   └── repository.ts
-    │   │   └── postgreSQL/
-    │   │       └── repository.ts
-    │   ├── usecase/
-    │   │   └── usecase.ts // logic business
-    │   └── name module.ts // for init the module to add in the main.ts
-    └── other module
-```
+
