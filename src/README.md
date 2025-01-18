@@ -25,5 +25,5 @@
 │       ├── middleware/
 │       └── grapql.ts
 ├── main.ts // execution server
-└── migration.ts // config database for running migration
+└── migrater.ts // config database for running migration
 ```
