@@ -31,7 +31,7 @@ class Post {
     }
 
     private httpPublic(handler: Handler, http: Http) {
-        const Router = http.Router()
+        const Router = http.Router
 
         Router.get('/', handler.Fetch as RequestHandler)
 
@@ -39,7 +39,7 @@ class Post {
     }
 
     public httpPrivate(handler: Handler, http: Http) {
-        const Router = http.Router()
+        const Router = http.Router
         const jwt = new Jwt(this.config.jwt.access_key)
 
         const auth = VerifyAuth(jwt)

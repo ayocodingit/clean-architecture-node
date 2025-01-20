@@ -24,6 +24,7 @@ type responseError = {
 class Http {
     public app: Express
     public dest: string = '.'
+    public Router = express.Router()
 
     constructor(private logger: Logger, private config: Config) {
         this.app = express()
@@ -108,26 +109,23 @@ class Http {
         return protocol + '://' + req.headers.host
     }
 
-    public Router() {
-        return express.Router()
-    }
-
     public SetRouter(prefix: string, ...router: RequestHandler[]) {
         this.app.use(this.config.app.prefix + prefix, router)
     }
 
     private ping = () => {
-        this.app.get(
-            this.config.app.prefix + '/',
-            (req: Request, res: Response) => {
-                this.logger.Info('OK', {
-                    additional_info: this.AdditionalInfo(req, res.statusCode),
-                })
-                return res.json({
-                    app_name: this.config.app.name,
-                })
-            }
-        )
+        const router = this.Router
+
+        router.get('/', (req: Request, res: Response) => {
+            this.logger.Info('OK', {
+                additional_info: this.AdditionalInfo(req, res.statusCode),
+            })
+            return res.json({
+                app_name: this.config.app.name,
+            })
+        })
+
+        this.SetRouter('/', router)
     }
 
     public Upload(fieldName: string) {
@@ -137,7 +135,7 @@ class Http {
                 fileSize: this.config.file.max,
             },
         })
-        return upload.single(fieldName)
+        return upload.array(fieldName)
     }
 
     public RateLimiter(
