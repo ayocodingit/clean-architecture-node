@@ -49,18 +49,10 @@ The project follows the principles of Clean Architecture, emphasizing separation
    npm install
    ```
 
-4. Copy the appropriate environment file:
-
-   - For MongoDB, use `.env.example.mongo`:
+4. Copy the appropriate environment file::
 
      ```bash
-     cp .env.example.mongo .env
-     ```
-
-   - For SQL (choose MySQL, PostgreSQL, or SQLite), use `.env.example.sql`:
-
-     ```bash
-     cp .env.example.sql .env
+     cp .env.example .env
      ```
 
    Customize the `.env` file according to your configuration.
