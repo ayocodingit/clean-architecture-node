@@ -3,7 +3,6 @@ import { RequestParams } from '../../../../helpers/requestParams'
 import {
     RequestBody,
     RequestQueryFetch,
-    Fetch,
     Store,
 } from '../../entity/interface'
 import { Schema } from '../../../../database/sequelize/interface'
@@ -13,7 +12,7 @@ class Repository {
 
     public async Fetch(
         request: RequestParams<RequestQueryFetch>
-    ): Promise<Fetch> {
+    ) {
         const { count, rows } = await this.schema.post.findAndCountAll({
             limit: request.per_page,
             offset: request.offset,

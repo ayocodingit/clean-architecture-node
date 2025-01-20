@@ -24,7 +24,7 @@ type responseError = {
 class Http {
     public app: Express
     public dest: string = '.'
-    public Router = express.Router()
+    public Router = () => express.Router()
 
     constructor(private logger: Logger, private config: Config) {
         this.app = express()
@@ -114,16 +114,16 @@ class Http {
     }
 
     private ping = () => {
-        const router = this.Router
+        const router = this.Router()
 
         router.get('/', (req: Request, res: Response) => {
-            this.logger.Info('OK', {
-                additional_info: this.AdditionalInfo(req, res.statusCode),
+                this.logger.Info('OK', {
+                    additional_info: this.AdditionalInfo(req, res.statusCode),
+                })
+                return res.json({
+                    app_name: this.config.app.name,
+                })
             })
-            return res.json({
-                app_name: this.config.app.name,
-            })
-        })
 
         this.SetRouter('/', router)
     }
