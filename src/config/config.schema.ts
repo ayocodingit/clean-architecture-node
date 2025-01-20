@@ -31,4 +31,7 @@ export default Joi.object({
 
     JWT_ACCESS_SECRET: Joi.string().optional(),
     JWT_ALGORITHM: Joi.string().default('HS256').optional(),
+
+    REDIS_HOST: Joi.string().optional(),
+    REDIS_PORT: Joi.number().optional(),
 })

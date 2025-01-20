@@ -1,5 +1,5 @@
 import sequelize from 'sequelize'
-import { QueryInterface, DataTypes, Sequelize } from 'sequelize'
+import { QueryInterface, DataTypes } from 'sequelize'
 
 const tableName = 'posts'
 

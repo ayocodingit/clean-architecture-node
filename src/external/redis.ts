@@ -1,12 +1,12 @@
 import * as redis from 'redis'
 import { Config } from '../config/config.interface'
-import Logger from './logger'
+import Logger from '../pkg/logger'
 
 class Redis {
     public client: redis.RedisClientType
-    constructor({ redis }: any, logger: Logger) {
+    constructor(config: Config, logger: Logger) {
         this.client = redis.createClient({
-            url: `redis://${redis.host}:${redis.port}`,
+            url: `redis://${config.redis.host}:${config.redis.port}`,
         })
         this.client.connect().then(() => {
             logger.Info('redis connected')

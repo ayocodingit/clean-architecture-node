@@ -8,7 +8,7 @@
 │   ├── config.ts // setting configuration from .env
 │   └── config.validate.ts // helper running validation
 ├── cron // execution need of running cron job
-├── database 
+├── database
 ├── external // integration of third party with API external
 ├── helpers
 ├── modules // define modules

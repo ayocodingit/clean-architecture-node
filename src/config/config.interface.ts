@@ -32,4 +32,8 @@ export type Config = {
         access_key: string
         algorithm: string
     }
+    redis: {
+        host: string
+        port: string
+    }
 }

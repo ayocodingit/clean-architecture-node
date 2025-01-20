@@ -1,10 +1,6 @@
 import Joi from 'joi'
 import statusCode from '../pkg/statusCode'
-import {
-    Validate,
-    ValidateFormRequest,
-    ValidateParams,
-} from './validate'
+import { Validate, ValidateFormRequest, ValidateParams } from './validate'
 
 const password = Date.now().toString()
 

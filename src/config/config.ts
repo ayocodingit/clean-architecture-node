@@ -40,6 +40,10 @@ const config: Config = {
         access_key: env.JWT_ACCESS_SECRET,
         algorithm: env.JWT_ALGORITHM,
     },
+    redis: {
+        host: env.REDIS_HOST,
+        port: env.REDIS_PORT,
+    },
 }
 
 export default config
