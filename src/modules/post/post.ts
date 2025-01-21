@@ -11,7 +11,7 @@ import Sequelize from '../../database/sequelize/sequelize'
 import { RequestHandler } from 'express'
 
 class Post {
-    public usecase: Usecase
+    private usecase: Usecase
 
     constructor(
         private logger: Logger,
