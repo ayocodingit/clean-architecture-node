@@ -117,13 +117,13 @@ class Http {
         const router = this.Router()
 
         router.get('/', (req: Request, res: Response) => {
-                this.logger.Info('OK', {
-                    additional_info: this.AdditionalInfo(req, res.statusCode),
-                })
-                return res.json({
-                    app_name: this.config.app.name,
-                })
+            this.logger.Info('OK', {
+                additional_info: this.AdditionalInfo(req, res.statusCode),
             })
+            return res.json({
+                app_name: this.config.app.name,
+            })
+        })
 
         this.SetRouter('/', router)
     }
