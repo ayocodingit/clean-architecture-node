@@ -12,12 +12,6 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    services:
-      mysql:
-        image: mysql:8
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=5 -e MYSQL_ROOT_PASSWORD=test -e MYSQL_USER=test -e MYSQL_PASSWORD=test -e MYSQL_DATABASE=test --entrypoint sh mysql:8 -c "exec docker-entrypoint.sh mysqld --mysql-native-password=ON"
-        ports:
-          - 3306:3306
           
     steps:
       - name: Checkout
@@ -31,26 +25,14 @@ jobs:
       - name: Run Npm Install
         run: npm install
 
-      - name: Create env file
-        run: |
-          touch .env
-          echo APP_NAME='test' >> .env
-          echo DB_HOST=0.0.0.0 >> .env
-          echo DB_PORT=3306 >> .env
-          echo DB_USERNAME='test' >> .env
-          echo DB_PASSWORD='test' >> .env
-          echo DB_CONNECTION='mysql' >> .env
-          echo DB_NAME='test' >> .env
-          cat .env
-
       - name: Run build
         run: npm run build
-
-      - name: Run Migrate Local
-        run: npm run migrate
         
       - name: Run Testing
         run: npm run test
+
+      - name: Run Linter
+        run: npm run lint
 
       # - name: Set Up Codeclimate and Send Report Codeclimate
       #   uses: paambaati/codeclimate-action@v2.7.5
