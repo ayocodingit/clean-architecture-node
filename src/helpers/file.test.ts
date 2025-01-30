@@ -3,23 +3,21 @@ import { CustomPathFile, GetFiletype } from './file'
 
 describe('CustomPathFile function', () => {
     it('should append extension to filename if missing', () => {
-        const unit = 'uploads'
-        const category = 'image'
+        const path = 'uploads'
         const file = { filename: 'file1', originalname: 'file1.jpg' }
 
-        const result = CustomPathFile(unit, file, category)
+        const result = CustomPathFile(path, file)
 
-        expect(result).toBe(`${unit}/${category}/${file.filename}`)
+        expect(result).toBe(`${path}/${file.filename}`)
     })
 
     it('should not modify filename if extension is present', () => {
-        const unit = 'uploads'
-        const category = 'document'
+        const path = 'uploads'
         const file = { filename: 'file2.pdf', originalname: 'file2.pdf' }
 
-        const result = CustomPathFile(unit, file, category)
+        const result = CustomPathFile(path, file)
 
-        expect(result).toBe(`${unit}/${category}/${file.filename}`)
+        expect(result).toBe(`${path}/${file.filename}`)
     })
 })
 
