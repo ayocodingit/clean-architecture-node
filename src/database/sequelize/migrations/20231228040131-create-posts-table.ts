@@ -8,7 +8,7 @@ export async function up(queryInterface: QueryInterface) {
         id: {
             allowNull: false,
             primaryKey: true,
-            type: DataTypes.UUID,
+            type: DataTypes.STRING,
         },
         title: {
             type: DataTypes.STRING,
