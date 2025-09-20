@@ -7,7 +7,7 @@ const Post = (connection: Connection) => {
         {
             id: {
                 primaryKey: true,
-                type: DataTypes.UUID,
+                type: DataTypes.STRING,
                 defaultValue: DataTypes.UUIDV4,
             },
             title: {
