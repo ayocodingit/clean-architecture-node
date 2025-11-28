@@ -1,7 +1,7 @@
 import { RequestParams } from '../../../helpers/requestParams'
 import Logger from '../../../pkg/logger'
 import { RequestBody, RequestQueryFetch } from '../entity/interface'
-import Repository from '../repository/mysql/repository'
+import Repository from '../repository/repository'
 
 class Usecase {
     constructor(private logger: Logger, private repository: Repository) {}

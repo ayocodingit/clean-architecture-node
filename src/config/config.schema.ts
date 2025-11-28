@@ -16,7 +16,7 @@ export default Joi.object({
 
     DB_CONNECTION: Joi.string()
         .valid('mysql', 'postgres')
-        .default('mysql')
+        .default('postgres')
         .optional(),
     DB_HOST: Joi.string().optional(),
     DB_PORT: Joi.number().optional(),

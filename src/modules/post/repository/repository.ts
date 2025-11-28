@@ -1,7 +1,7 @@
-import Logger from '../../../../pkg/logger'
-import { RequestParams } from '../../../../helpers/requestParams'
-import { RequestBody, RequestQueryFetch, Store } from '../../entity/interface'
-import { Schema } from '../../../../database/sequelize/interface'
+import Logger from '../../../pkg/logger'
+import { RequestParams } from '../../../helpers/requestParams'
+import { RequestBody, RequestQueryFetch, Store } from '../entity/interface'
+import { Schema } from '../../../database/sequelize/interface'
 
 class Repository {
     constructor(private logger: Logger, private schema: Schema) {}

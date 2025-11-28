@@ -6,7 +6,7 @@ import { VerifyAuth } from '../../transport/http/middleware/verifyAuth'
 import { Config } from '../../config/config.interface'
 import Jwt from '../../pkg/jwt'
 import { Connection } from '../../database/sequelize/interface'
-import Repository from './repository/mysql/repository'
+import Repository from './repository/repository'
 import Sequelize from '../../database/sequelize/sequelize'
 import { RequestHandler } from 'express'
 
