@@ -2,76 +2,132 @@
 
 ![Node.js Logo](https://nodejs.org/static/images/logo.svg)
 
-This boilerplate provides a foundation for Node.js applications using Clean Architecture principles. It utilizes a tech stack including Sequelize, TypeScript, and Docker. The default HTTP framework is Express.
-
 [![GitHub Repository](https://img.shields.io/badge/GitHub-Repository-blue?logo=github)](https://github.com/ayocodingit/boilerplate-clean-architecture)
-<a href="https://codeclimate.com/github/ayocodingit/boilerplate-clean-architecture/maintainability"><img src="https://api.codeclimate.com/v1/badges/12c10806992f9baa009f/maintainability" /></a>
-<a href="https://codeclimate.com/github/ayocodingit/boilerplate-clean-architecture/test_coverage"><img src="https://api.codeclimate.com/v1/badges/12c10806992f9baa009f/test_coverage" /></a>
+[![Maintainability](https://api.codeclimate.com/v1/badges/12c10806992f9baa009f/maintainability)](https://codeclimate.com/github/ayocodingit/boilerplate-clean-architecture/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/12c10806992f9baa009f/test_coverage)](https://codeclimate.com/github/ayocodingit/boilerplate-clean-architecture/test_coverage)
 
-## License
+## 📖 Introduction
 
-Open Source for you to make app powerful and high scalability, and if you experience difficulties when using this framework, please write in the issue repo
+This boilerplate is a robust and scalable foundation for building Node.js applications using **Clean Architecture** principles. It is designed to help developers create maintainable, testable, and loosely coupled systems.
 
-## Tech Stack
+By separating concerns into distinct layers (Entities, Use Cases, Interface Adapters, Frameworks), this boilerplate ensures that your business logic remains independent of frameworks, databases, and external agencies.
 
-- Node.js v18.20.4
-- Sequelize (SQL ORM)
-- TypeScript
-- Docker
-- Express (HTTP framework)
+## 🚀 Why use this boilerplate?
 
-## Design Pattern: Clean Architecture
+- **Separation of Concerns**: Business rules are isolated from implementation details.
+- **Testability**: The architecture makes it easy to test business logic without UI, database, or web server.
+- **Scalability**: Easy to add new features and maintain existing ones as the project grows.
+- **Type Safety**: Built with **TypeScript** for better developer experience and code reliability.
+- **Database Agnostic**: While it comes with **Sequelize**, the repository pattern allows you to switch databases with minimal impact on business logic.
+- **Ready-to-use Features**: Includes Docker support, linting, migration tools, and more.
 
-The project follows the principles of Clean Architecture, emphasizing separation of concerns into distinct layers:
+## ✨ Features
 
-- **Entities**: Representing the core business entities.
-- **Use Cases**: Defining application-specific business rules.
-- **Interface Adapters**: Implementing details for external frameworks and tools.
-- **Frameworks & Drivers**: Implementing details for external frameworks and tools (Express, databases, etc.).
+- **Clean Architecture Layers**:
+  - **Entities**: Enterprise business rules.
+  - **Use Cases**: Application business rules.
+  - **Interface Adapters**: Controllers, Gateways, Presenters.
+  - **Frameworks & Drivers**: Web Framework (Express), Database (Sequelize), etc.
+- **Tech Stack**:
+  - **Runtime**: Node.js v18+
+  - **Language**: TypeScript
+  - **Framework**: Express.js
+  - **ORM**: Sequelize (SQL)
+  - **Containerization**: Docker
+  - **Testing**: Jest
+  - **Logging**: Winston
+  - **Validation**: Joi / Class Validator (via config schema)
+  - **Linting & Formatting**: Eslint & Prettier
 
-## Installation
+## 📂 Folder Structure
 
-1. Clone the repository:
+The project structure is organized to reflect the Clean Architecture layers:
 
-   ```bash
-   git clone https://github.com/ayocodingit/boilerplate-clean-architecture.git
-   ```
-
-2. Navigate to the project directory:
-
-   ```bash
-   cd boilerplate-clean-architecture
-   ```
-
-3. Install dependencies:
-
-   ```bash
-   npm install
-   ```
-
-4. Copy the appropriate environment file::
-
-     ```bash
-     cp .env.example .env
-     ```
-
-   Customize the `.env` file according to your configuration.
-
-## Usage
-
-### Development
-
-```bash
-npm run start:dev
+```text
+src/
+├── config/             # Environment variables and configuration
+├── cron/               # Cron jobs
+├── database/           # Database migrations and seeds
+├── external/           # External API integrations
+├── helpers/            # Utility functions
+├── modules/            # Business logic (The Core)
+│   └── [module_name]/
+│       ├── entity/     # Domain entities/interfaces
+│       ├── repository/ # Data access interfaces
+│       └── usecase/    # Application business rules
+├── pkg/                # Shared packages/libraries
+├── transport/          # Entry points (HTTP, gRPC, etc.)
+│   └── http/
+│       ├── middleware/ # Express middlewares
+│       └── [module]/   # HTTP Handlers/Controllers
+├── main.ts             # Application entry point
+└── migrater.ts         # Migration runner
 ```
 
-### Build
+## 🛠️ Installation & Setup
+
+### Prerequisites
+
+- [Node.js](https://nodejs.org/) (v18 or higher)
+- [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/)
+- [Docker](https://www.docker.com/) (optional, for containerized run)
+
+### Steps
+
+1.  **Clone the repository:**
+
+    ```bash
+    git clone https://github.com/ayocodingit/clean-architecture-node.git
+    cd clean-architecture-node
+    ```
+
+2.  **Install dependencies:**
+
+    ```bash
+    npm install
+    ```
+
+3.  **Environment Configuration:**
+
+    Copy the example environment file and update it with your credentials.
+
+    ```bash
+    cp .env.example .env
+    ```
+
+4.  **Database Setup:**
+
+    Ensure your database is running (update `.env` with DB credentials). Then run migrations:
+
+    ```bash
+    npm run migrate
+    ```
+
+    (Optional) Seed the database:
+
+    ```bash
+    npm run seed:run --name=your-seed-filename
+    ```
+
+## 🏃 Usage
+
+### Development Mode
+
+Runs the application with hot-reloading.
+
+```bash
+npm run dev
+```
+
+### Production Build
+
+Builds the TypeScript code to JavaScript.
 
 ```bash
 npm run build
 ```
 
-### Start
+Start the built application:
 
 ```bash
 npm start
@@ -79,75 +135,50 @@ npm start
 
 ### Docker
 
-Build Docker image:
+Build and run the application using Docker.
 
 ```bash
-docker -f docker/Dockerfile build -t your-image-name .
+# Build image
+docker -f docker/Dockerfile build -t my-app .
+
+# Run container
+docker run -p 3000:3000 -d my-app
 ```
 
-Run Docker container:
+## 🧪 Testing
+
+Run unit and integration tests.
 
 ```bash
-docker run -p 3000:3000 -d your-image-name
+npm test
 ```
 
-## Additional Scripts
+## 📝 Tutorial: Creating a New Module
 
-- **Linting:**
-  - Check code formatting:
-    ```bash
-    npm run lint
-    ```
-  - Fix code formatting:
-    ```bash
-    npm run lint:fix
-    ```
+Here is a quick guide on how to add a new feature (e.g., `Post`) following the architecture.
 
-- **Database Migration:**
-  - Run migrations:
-    ```bash
-    npm run migrate
-    ```
-  - Rollback migrations:
-    ```bash
-    npm run migrate:rollback
-    ```
+1.  **Define the Entity**:
+    Create `src/modules/post/entity/interface.ts` to define the data structure.
 
-- **Local Database Migration (development):**
-  - Generate migration file:
-    ```bash
-    npm run migration:generate --name=your-migration-name
-    ```
-  - Run migrations:
-    ```bash
-    npm run build && npm run migrate
-    ```
-  - Rollback migrations:
-    ```bash
-    npm run build && npm run migrate:rollback
-    ```
+2.  **Create the Repository Interface**:
+    Create `src/modules/post/repository/repository.ts` to define how data is accessed (methods like `findById`, `save`).
 
-- **Seed:**
-  - Run Seed:
-    ```bash
-    npm run seed:run --name=your-seed-filename
-    ```
+3.  **Implement the Use Case**:
+    Create `src/modules/post/usecase/usecase.ts`. This class should implement the business logic and use the repository interface.
 
+4.  **Implement the Repository**:
+    Create `src/modules/post/repository/mysql/repository.ts` (or other DB) to implement the repository interface using Sequelize.
 
-- **Cron:**
-  - Run Cron:
-    ```bash
-    npm run seed:run --name=your-cron-filename
-    ```
+5.  **Create the HTTP Handler**:
+    Create `src/transport/http/post/handler.ts` to handle HTTP requests, validate input, and call the Use Case.
 
-- **Testing:**
-  - Run tests:
-    ```bash
-    npm test
-    ```
+6.  **Register Routes**:
+    Add the new routes in the main HTTP router (e.g., `src/transport/http/http.ts`).
 
-## Folder Structure
-- [src/](https://github.com/ayocodingit/clean-architecture-node/blob/main/src/README.md) 
-  - [modules/](https://github.com/ayocodingit/clean-architecture-node/blob/main/src/modules/README.md)
+## 🤝 Contributing
 
+Contributions are welcome! Please feel free to submit a Pull Request.
 
+## 📄 License
+
+This project is licensed under the MIT License.
