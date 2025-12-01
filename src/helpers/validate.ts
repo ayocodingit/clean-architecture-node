@@ -58,7 +58,7 @@ const getValidationErrors = (
     return errors
 }
 
-export const Validate = <T = any>(
+const Validate = <T = any>(
     schema: Joi.Schema<T>,
     values: any,
     locale: string = ''

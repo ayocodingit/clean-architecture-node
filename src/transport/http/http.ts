@@ -15,6 +15,7 @@ import Error from '../../pkg/error'
 import multer from 'multer'
 import Logger from '../../pkg/logger'
 import rateLimit from 'express-rate-limit'
+import { Connection } from '../../database/sequelize/interface'
 
 type responseError = {
     message?: string | object
@@ -23,10 +24,13 @@ type responseError = {
 
 class Http {
     public app: Express
-    public dest: string = '.'
     public Router = () => express.Router()
 
-    constructor(private logger: Logger, private config: Config) {
+    constructor(
+        private logger: Logger,
+        private config: Config,
+        private connection: Connection
+    ) {
         this.app = express()
         this.plugins()
         this.ping()
@@ -38,14 +42,14 @@ class Http {
         this.app.use(bodyParser.json())
         this.app.use(helmet())
         this.app.use(compression())
+        this.app.disable('x-powered-by')
     }
 
     private pageNotFound = () => {
-        this.app.all('*', (_: Request, res: Response) => {
-            throw new Error(
-                statusCode.NOT_FOUND,
-                statusCode[statusCode.NOT_FOUND]
-            )
+        this.app.all('*', (req: Request, res: Response) => {
+            return res.status(statusCode.NOT_FOUND).json({
+                message: statusCode[statusCode.NOT_FOUND],
+            })
         })
     }
 
@@ -90,7 +94,7 @@ class Http {
     public AdditionalInfo(req: any, statusCode: number) {
         return {
             env: this.config.app.env,
-            http_uri: req.originalUrl,
+            http_uri: req.path,
             http_host: this.GetDomain(req),
             http_method: req.method,
             http_scheme: req.protocol,
@@ -104,9 +108,9 @@ class Http {
     }
 
     public GetDomain(req: Request) {
-        let protocol = req.protocol
-        if (this.config.app.env !== 'local') protocol = 'https'
-        return protocol + '://' + req.headers.host
+        const protocol = req.protocol
+        const host = req.get('host')
+        return `${protocol}://${host}`
     }
 
     public SetRouter(prefix: string, ...router: RequestHandler[]) {
@@ -116,10 +120,14 @@ class Http {
     private ping = () => {
         const router = this.Router()
 
-        router.get('/', (req: Request, res: Response) => {
+        router.get('/', async (req: Request, res: Response) => {
+            // test connection to database
+            await this.connection.query('SELECT 1+1 AS result')
+
             this.logger.Info('OK', {
                 additional_info: this.AdditionalInfo(req, res.statusCode),
             })
+
             return res.json({
                 app_name: this.config.app.name,
             })
@@ -130,12 +138,13 @@ class Http {
 
     public Upload(fieldName: string) {
         const upload = multer({
-            dest: this.dest,
             limits: {
                 fileSize: this.config.file.max,
             },
+            storage: multer.memoryStorage(),
         })
-        return upload.array(fieldName)
+
+        return upload.single(fieldName)
     }
 
     public RateLimiter(

@@ -10,7 +10,7 @@ const Run = async () => {
     // const connection = await Mongo.Connect(logger, config)
     const connection = await Sequelize.Connect(config, logger)
 
-    const http = new Http(logger, config)
+    const http = new Http(logger, config, connection)
 
     // Start Load Modules
     new Post(logger, config, connection).RunHttp(http)
