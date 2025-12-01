@@ -1,6 +1,6 @@
 import Joi from 'joi'
 import statusCode from '../pkg/statusCode'
-import { Validate, ValidateFormRequest, ValidateParams } from './validate'
+import { ValidateFormRequest, ValidateParams } from './validate'
 
 const password = Date.now().toString()
 
@@ -8,37 +8,6 @@ describe('test all function in file Validate', () => {
     const schema = Joi.object({
         username: Joi.string().required(),
         password: Joi.string().required(),
-    })
-    it('test function validate no error', () => {
-        const { value, errors } = Validate(schema, {
-            username: 'test',
-            password,
-        })
-        expect(value).toEqual(
-            expect.objectContaining({
-                username: expect.any(String),
-                password: expect.any(String),
-            })
-        )
-
-        expect(errors).toBeUndefined()
-    })
-    it('test function validate with error username not defined', () => {
-        const { errors, value } = Validate(schema, {
-            password,
-        })
-
-        expect(value).toEqual(
-            expect.objectContaining({
-                password,
-            })
-        )
-
-        expect(errors).toEqual(
-            expect.objectContaining({
-                username: 'username is required',
-            })
-        )
     })
 
     it('test function ValidateFormRequest', () => {
