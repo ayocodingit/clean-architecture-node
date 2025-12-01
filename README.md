@@ -29,7 +29,7 @@ By separating concerns into distinct layers (Entities, Use Cases, Interface Adap
   - **Interface Adapters**: Controllers, Gateways, Presenters.
   - **Frameworks & Drivers**: Web Framework (Express), Database (Sequelize), etc.
 - **Tech Stack**:
-  - **Runtime**: Node.js v18+
+  - **Runtime**: Node.js v20+
   - **Language**: TypeScript
   - **Framework**: Express.js
   - **ORM**: Sequelize (SQL)
@@ -68,7 +68,7 @@ src/
 
 ### Prerequisites
 
-- [Node.js](https://nodejs.org/) (v18 or higher)
+- [Node.js](https://nodejs.org/) (v20 or higher)
 - [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/)
 - [Docker](https://www.docker.com/) (optional, for containerized run)
 
