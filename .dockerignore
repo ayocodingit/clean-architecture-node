@@ -3,3 +3,16 @@ node_modules
 build
 coverage
 *.test.ts
+.git
+.github
+.gitignore
+.codeclimate.yml
+.prettierrc
+docker
+jest.config.ts
+nodemon.json
+plop-templates
+plopfile.js
+README.md
+*.log
+.DS_Store

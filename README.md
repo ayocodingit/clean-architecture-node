@@ -177,6 +177,19 @@ This will create:
 
 After generation, you just need to implement your specific business logic in these files.
 
+## 📝 Tutorial: Creating a New Migration
+
+You can generate a new TypeScript migration file using the built-in CLI command. This ensures the file is correctly named with a timestamp and follows the project's standard.
+
+```bash
+npm run make:migration
+```
+
+You will be prompted to enter a descriptive name for the migration (e.g., `create-users-table`).
+
+Example Output:
+`src/database/sequelize/migrations/20231203153000-create-users-table.ts`
+
 ## 🤝 Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.

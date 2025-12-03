@@ -1,0 +1,26 @@
+import sequelize from 'sequelize'
+import { QueryInterface, DataTypes } from 'sequelize'
+
+const tableName = '{{snakeCase name}}'
+
+export async function up(queryInterface: QueryInterface) {
+    await queryInterface.createTable(tableName, {
+        id: {
+            allowNull: false,
+            primaryKey: true,
+            type: DataTypes.STRING,
+        },
+        created_at: {
+            type: DataTypes.DATE,
+            defaultValue: sequelize.fn('NOW'),
+        },
+        updated_at: {
+            type: DataTypes.DATE,
+            defaultValue: sequelize.fn('NOW'),
+        },
+    })
+}
+
+export async function down(queryInterface: QueryInterface) {
+    return queryInterface.dropTable(tableName)
+}
