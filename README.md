@@ -155,25 +155,27 @@ npm test
 
 ## 📝 Tutorial: Creating a New Module
 
-Here is a quick guide on how to add a new feature (e.g., `Post`) following the architecture.
+You can easily generate a new module using the built-in CLI command. This command will create the necessary files and folders following the Clean Architecture structure.
 
-1.  **Define the Entity**:
-    Create `src/modules/post/entity/interface.ts` to define the data structure.
+```bash
+npm run generate:module <module-name>
+```
 
-2.  **Create the Repository Interface**:
-    Create `src/modules/post/repository/repository.ts` to define how data is accessed (methods like `findById`, `save`).
+Example:
 
-3.  **Implement the Use Case**:
-    Create `src/modules/post/usecase/usecase.ts`. This class should implement the business logic and use the repository interface.
+```bash
+npm run generate:module product
+```
 
-4.  **Implement the Repository**:
-    Create `src/modules/post/repository/mysql/repository.ts` (or other DB) to implement the repository interface using Sequelize.
+This will create:
+- `src/modules/product/product.ts`
+- `src/modules/product/delivery/http/handler.ts`
+- `src/modules/product/entity/interface.ts`
+- `src/modules/product/entity/schema.ts`
+- `src/modules/product/repository/repository.ts`
+- `src/modules/product/usecase/usecase.ts`
 
-5.  **Create the HTTP Handler**:
-    Create `src/transport/http/post/handler.ts` to handle HTTP requests, validate input, and call the Use Case.
-
-6.  **Register Routes**:
-    Add the new routes in the main HTTP router (e.g., `src/transport/http/http.ts`).
+After generation, you just need to implement your specific business logic in these files.
 
 ## 🤝 Contributing
 

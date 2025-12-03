@@ -14,7 +14,8 @@
         "make:migration": "npx sequelize-cli migration:generate --name $npm_config_name --migrations-path src/database/sequelize/migrations",
         "migrate": "npx sequelize-cli db:migrate --config build/src/migrater.js --migrations-path build/src/database/sequelize/migrations",
         "migrate:rollback": "npx sequelize-cli db:migrate:undo --config build/src/migrater.js --migrations-path build/src/database/sequelize/migrations",
-        "test": "APP_ENV=test APP_LOG=error npx jest"
+        "test": "APP_ENV=test APP_LOG=error npx jest",
+        "generate:module": "plop module"
     },
     "keywords": [
         "clean-architecture",
@@ -41,6 +42,7 @@
         "@types/supertest": "^6.0.2",
         "jest": "^29.5.0",
         "nodemon": "^2.0.20",
+        "plop": "^4.0.4",
         "prettier": "2.8.2",
         "rimraf": "^3.0.2",
         "supertest": "^6.3.4",
