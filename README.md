@@ -158,13 +158,13 @@ npm test
 You can easily generate a new module using the built-in CLI command. This command will create the necessary files and folders following the Clean Architecture structure.
 
 ```bash
-npm run generate:module <module-name>
+npm run make:module <module-name>
 ```
 
 Example:
 
 ```bash
-npm run generate:module product
+npm run make:module product
 ```
 
 This will create:

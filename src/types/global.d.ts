@@ -1,4 +1,4 @@
-import { Request } from 'express'
+import { Request, File } from 'express'
 
 declare global {
     namespace Express {
@@ -17,7 +17,7 @@ export interface AuthenticatedRequest extends Request {
     query: any
     body: any
     params: any
-    file: any
-    files: any
+    file: File
+    files: File[]
     headers: any
 }
