@@ -24,7 +24,6 @@
         "express",
         "javascript",
         "sequelize",
-        "mongoose",
         "boilerplate"
     ],
     "author": "ayocodingit",
