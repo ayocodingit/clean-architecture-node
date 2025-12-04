@@ -2,6 +2,7 @@ import config from './config/config'
 import Sequelize from './database/sequelize/sequelize'
 import Post from './modules/post/post'
 import Logger from './pkg/logger'
+
 import Http from './transport/http/http'
 
 const Run = async () => {
@@ -12,6 +13,7 @@ const Run = async () => {
 
     // Start Load Modules
     new Post(logger, config, connection).RunHttp(http)
+
     // End Load Modules
 
     http.Run(config.app.port.http)

@@ -39,6 +39,18 @@ module.exports = function (plop) {
                 path: 'src/modules/{{camelCase name}}/usecase/usecase.ts',
                 templateFile: 'plop-templates/module/usecase/usecase.ts.hbs',
             },
+            {
+                type: 'modify',
+                path: 'src/app.ts',
+                pattern: /(import Http from '\.\/transport\/http\/http')/g,
+                template: "import {{properCase name}} from './modules/{{camelCase name}}/{{camelCase name}}'\n$1",
+            },
+            {
+                type: 'modify',
+                path: 'src/app.ts',
+                pattern: /(\/\/ End Load Modules)/g,
+                template: 'new {{properCase name}}(logger, config, connection).RunHttp(http)\n    $1',
+            },
         ],
     });
     plop.setHelper('timestamp', () => {
