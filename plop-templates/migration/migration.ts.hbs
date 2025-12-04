@@ -1,7 +1,7 @@
 import sequelize from 'sequelize'
 import { QueryInterface, DataTypes } from 'sequelize'
 
-const tableName = '{{snakeCase name}}'
+const tableName = '{{snakeCase table}}'
 
 export async function up(queryInterface: QueryInterface) {
     await queryInterface.createTable(tableName, {

@@ -58,7 +58,12 @@ module.exports = function (plop) {
             {
                 type: 'input',
                 name: 'name',
-                message: 'Migration name please (e.g., create-users-table)',
+                message: 'Migration name please',
+            },
+            {
+                type: 'input',
+                name: 'table',
+                message: 'Table name please',
             },
         ],
         actions: [
@@ -66,6 +71,35 @@ module.exports = function (plop) {
                 type: 'add',
                 path: 'src/database/sequelize/migrations/{{timestamp}}-{{kebabCase name}}.ts',
                 templateFile: 'plop-templates/migration/migration.ts.hbs',
+            },
+            {
+                type: 'add',
+                path: 'src/database/sequelize/models/{{kebabCase name}}.ts',
+                templateFile: 'plop-templates/model/model.ts.hbs',
+            },
+            {
+                type: 'modify',
+                path: 'src/database/sequelize/interface.ts',
+                pattern: /(\/\/ Add other models if needed)/g,
+                template: '{{camelCase name}}: Model\n    $1',
+            },
+            {
+                type: 'modify',
+                path: 'src/database/sequelize/sequelize.ts',
+                pattern: /(import { Connection } from '\.\/interface')/g,
+                template: "import {{pascalCase name}} from './models/{{kebabCase name}}'\n$1",
+            },
+            {
+                type: 'modify',
+                path: 'src/database/sequelize/sequelize.ts',
+                pattern: /(\/\/ load all model on folder models)/g,
+                template: '$1\n        const {{camelCase name}} = {{pascalCase name}}(connection)',
+            },
+            {
+                type: 'modify',
+                path: 'src/database/sequelize/sequelize.ts',
+                pattern: /(\/\/ Add other models if needed)/g,
+                template: '{{camelCase name}},\n            $1',
             },
         ],
     });

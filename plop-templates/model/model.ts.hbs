@@ -1,0 +1,22 @@
+import { DataTypes } from 'sequelize'
+import { Connection } from '../interface'
+
+const {{pascalCase name}} = (connection: Connection) => {
+    return connection.define(
+        '{{snakeCase table}}',
+        {
+            id: {
+                primaryKey: true,
+                type: DataTypes.STRING,
+                defaultValue: DataTypes.UUIDV4,
+            },
+        },
+        {
+            timestamps: true,
+            createdAt: 'created_at',
+            updatedAt: 'updated_at',
+        }
+    )
+}
+
+export default {{pascalCase name}}
