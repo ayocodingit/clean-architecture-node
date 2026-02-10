@@ -1,29 +1,35 @@
 import Logger from '../../../pkg/logger'
 import { RequestParams } from '../../../helpers/requestParams'
-import { RequestBody, RequestQueryFetch, Store } from '../entity/interface'
+import {
+Repository as RepositoryInterface,
+RequestBody,
+RequestQueryFetch,
+Store,
+} from '../../../modules/{{camelCase name}}/entity/interface'
 import { Schema } from '../../../database/sequelize/interface'
+import { Filter{{pascalCase name}}Dto, {{pascalCase name}}Dto } from './dto'
 
-class Repository {
-    constructor(private logger: Logger, private schema: Schema) {}
+class Repository implements RepositoryInterface {
+constructor(private logger: Logger, private schema: Schema) {}
 
-    public async Fetch(request: RequestParams<RequestQueryFetch>) {
-        const { count, rows } = await this.schema.{{camelCase name}}.findAndCountAll({
-            limit: request.per_page,
-            offset: request.offset,
-        })
+public async Fetch(request: RequestParams<Filter{{pascalCase name}}Dto>) {
+    const { count, rows } = await this.schema.{{camelCase name}}.findAndCountAll({
+    limit: request.per_page,
+    offset: request.offset,
+    })
 
-        return {
-            data: rows,
-            count,
-        }
+    return {
+    data: rows,
+    count,
+    }
     }
 
-    public async Store(body: RequestBody): Promise<Store> {
+    public async Store(body: {{pascalCase name}}Dto): Promise<Store> {
         return this.schema.{{camelCase name}}.create({
-            title: body.title,
-            description: body.description,
+        title: body.title,
+        description: body.description,
         })
-    }
-}
+        }
+        }
 
-export default Repository
+        export default Repository

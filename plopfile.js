@@ -31,8 +31,13 @@ module.exports = function (plop) {
             },
             {
                 type: 'add',
-                path: 'src/modules/{{camelCase name}}/repository/repository.ts',
+                path: 'src/database/repository/{{camelCase name}}/{{camelCase name}}.ts',
                 templateFile: 'plop-templates/module/repository/repository.ts.hbs',
+            },
+            {
+                type: 'add',
+                path: 'src/database/repository/{{camelCase name}}/dto.ts',
+                templateFile: 'plop-templates/module/repository/dto.ts.hbs',
             },
             {
                 type: 'add',

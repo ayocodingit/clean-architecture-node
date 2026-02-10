@@ -47,13 +47,13 @@ The project structure is organized to reflect the Clean Architecture layers:
 src/
 ├── config/             # Environment variables and configuration
 ├── cron/               # Cron jobs
-├── database/           # Database migrations and seeds
+├── database/           # Database migrations, seeds, and repositories
+│   └── repository/     # Data access implementation
 ├── external/           # External API integrations
 ├── helpers/            # Utility functions
 ├── modules/            # Business logic (The Core)
 │   └── [module_name]/
 │       ├── entity/     # Domain entities/interfaces
-│       ├── repository/ # Data access interfaces
 │       └── usecase/    # Application business rules
 ├── pkg/                # Shared packages/libraries
 ├── transport/          # Entry points (HTTP, gRPC, etc.)
@@ -172,8 +172,9 @@ This will create:
 - `src/modules/product/delivery/http/handler.ts`
 - `src/modules/product/entity/interface.ts`
 - `src/modules/product/entity/schema.ts`
-- `src/modules/product/repository/repository.ts`
 - `src/modules/product/usecase/usecase.ts`
+- `src/database/repository/product/product.ts` (Implementation)
+- `src/database/repository/product/dto.ts` (Data Transfer Objects)
 
 After generation, you just need to implement your specific business logic in these files.
 

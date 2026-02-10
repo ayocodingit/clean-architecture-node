@@ -1,12 +1,12 @@
 import Logger from '../../../pkg/logger'
 import { RequestParams } from '../../../helpers/requestParams'
-import { RequestBody, RequestQueryFetch, Store } from '../entity/interface'
 import { Schema } from '../../../database/sequelize/interface'
+import { FilterPostDto, PostDto } from './dto'
 
-class Repository {
+class PostRepository {
     constructor(private logger: Logger, private schema: Schema) {}
 
-    public async Fetch(request: RequestParams<RequestQueryFetch>) {
+    public async Fetch(request: RequestParams<FilterPostDto>) {
         const { count, rows } = await this.schema.post.findAndCountAll({
             limit: request.per_page,
             offset: request.offset,
@@ -18,7 +18,7 @@ class Repository {
         }
     }
 
-    public async Store(body: RequestBody): Promise<Store> {
+    public async Store(body: PostDto) {
         return this.schema.post.create({
             title: body.title,
             description: body.description,
@@ -26,4 +26,4 @@ class Repository {
     }
 }
 
-export default Repository
+export default PostRepository

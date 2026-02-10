@@ -6,9 +6,9 @@ import { VerifyAuth } from '../../transport/http/middleware/verifyAuth'
 import { Config } from '../../config/config.interface'
 import Jwt from '../../pkg/jwt'
 import { Connection } from '../../database/sequelize/interface'
-import Repository from './repository/repository'
 import Sequelize from '../../database/sequelize/sequelize'
 import { RequestHandler } from 'express'
+import PostRepository from '../../database/repository/post/post'
 
 class Post {
     private usecase: Usecase
@@ -19,8 +19,8 @@ class Post {
         connection: Connection
     ) {
         const schema = Sequelize.Models(connection)
-        const repository = new Repository(logger, schema)
-        this.usecase = new Usecase(logger, repository)
+        const postRepository = new PostRepository(logger, schema)
+        this.usecase = new Usecase(logger, postRepository)
     }
 
     public RunHttp(http: Http) {
