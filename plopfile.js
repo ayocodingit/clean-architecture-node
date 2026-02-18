@@ -69,6 +69,8 @@ module.exports = function (plop) {
         return `${yyyy}${mm}${dd}${hh}${min}${ss}`;
     });
 
+
+
     plop.setGenerator('migration', {
         description: 'Generate a new migration',
         prompts: [
@@ -76,11 +78,19 @@ module.exports = function (plop) {
                 type: 'input',
                 name: 'name',
                 message: 'Migration name please',
+                default: 'create-table',
+            },
+            {
+                type: 'input',
+                name: 'model',
+                message: 'Model name please',
+                default: 'post',
             },
             {
                 type: 'input',
                 name: 'table',
                 message: 'Table name please',
+                default: 'posts',
             },
         ],
         actions: [
@@ -91,32 +101,42 @@ module.exports = function (plop) {
             },
             {
                 type: 'add',
-                path: 'src/database/sequelize/models/{{kebabCase name}}.ts',
+                path: 'src/database/repository/{{camelCase model}}/{{camelCase model}}.ts',
+                templateFile: 'plop-templates/repository/repository.ts.hbs',
+            },
+            {
+                type: 'add',
+                path: 'src/database/repository/{{camelCase model}}/dto.ts',
+                templateFile: 'plop-templates/repository/dto.ts.hbs',
+            },
+            {
+                type: 'add',
+                path: 'src/database/sequelize/models/{{kebabCase model}}.ts',
                 templateFile: 'plop-templates/model/model.ts.hbs',
             },
             {
                 type: 'modify',
                 path: 'src/database/sequelize/interface.ts',
                 pattern: /(\/\/ Add other models if needed)/g,
-                template: '{{camelCase name}}: Model\n    $1',
+                template: '{{camelCase model}}: Model\n    $1',
             },
             {
                 type: 'modify',
                 path: 'src/database/sequelize/sequelize.ts',
                 pattern: /(import { Connection } from '\.\/interface')/g,
-                template: "import {{pascalCase name}} from './models/{{kebabCase name}}'\n$1",
+                template: "import {{pascalCase model}} from './models/{{kebabCase model}}'\n$1",
             },
             {
                 type: 'modify',
                 path: 'src/database/sequelize/sequelize.ts',
                 pattern: /(\/\/ load all model on folder models)/g,
-                template: '$1\n        const {{camelCase name}} = {{pascalCase name}}(connection)',
+                template: '$1\n        const {{camelCase model}} = {{pascalCase model}}(connection)',
             },
             {
                 type: 'modify',
                 path: 'src/database/sequelize/sequelize.ts',
                 pattern: /(\/\/ Add other models if needed)/g,
-                template: '{{camelCase name}},\n            $1',
+                template: '{{camelCase model}},\n            $1',
             },
         ],
     });

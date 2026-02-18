@@ -1,0 +1,29 @@
+import Logger from '../../../pkg/logger'
+import { RequestParams } from '../../../helpers/requestParams'
+import { Schema } from '../../../database/sequelize/interface'
+import { Filter{{pascalCase model}}Dto, {{pascalCase model}}Dto } from './dto'
+
+class Repository {
+    constructor(private logger: Logger, private schema: Schema) {}
+
+    public async Fetch(request: RequestParams<Filter{{pascalCase model}}Dto>) {
+        const { count, rows } = await this.schema.{{camelCase model}}.findAndCountAll({
+            limit: request.per_page,
+            offset: request.offset,
+        })
+
+        return {
+            data: rows,
+            count,
+        }
+    }
+
+    public async Store(body: {{pascalCase model}}Dto){
+        return this.schema.{{camelCase model}}.create({
+            title: body.title,
+            description: body.description,
+        })
+    }
+}
+
+export default Repository
