@@ -36,16 +36,6 @@ module.exports = function (plop) {
             },
             {
                 type: 'add',
-                path: 'src/database/repository/{{camelCase repository}}/{{camelCase repository}}.ts',
-                templateFile: 'plop-templates/repository/repository.ts.hbs',
-            },
-            {
-                type: 'add',
-                path: 'src/database/repository/{{camelCase repository}}/dto.ts',
-                templateFile: 'plop-templates/repository/dto.ts.hbs',
-            },
-            {
-                type: 'add',
                 path: 'src/modules/{{camelCase name}}/usecase/usecase.ts',
                 templateFile: 'plop-templates/module/usecase/usecase.ts.hbs',
             },
@@ -60,6 +50,16 @@ module.exports = function (plop) {
                 path: 'src/app.ts',
                 pattern: /(\/\/ End Load Modules)/g,
                 template: 'new {{properCase name}}(logger, config, connection).RunHttp(http)\n    $1',
+            },
+            {
+                type: 'add',
+                path: 'src/database/repository/{{camelCase repository}}/{{camelCase repository}}.ts',
+                templateFile: 'plop-templates/repository/repository.ts.hbs',
+            },
+            {
+                type: 'add',
+                path: 'src/database/repository/{{camelCase repository}}/dto.ts',
+                templateFile: 'plop-templates/repository/dto.ts.hbs',
             },
         ],
     });
