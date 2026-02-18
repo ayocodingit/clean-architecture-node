@@ -1,16 +1,11 @@
 // define for type data
 export type RequestBody = {
-title: string
-description: string
+    title: string
+    description: string
 }
 
 export type RequestQueryFetch = {
-start_date: string
+    start_date: string
 }
 
 export type Store = RequestBody
-
-export interface Repository {
-Fetch(request: any): Promise<any>
-    Store(body: RequestBody): Promise<Store>
-        }
