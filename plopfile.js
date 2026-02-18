@@ -9,8 +9,8 @@ module.exports = function (plop) {
             },
             {
                 type: 'input',
-                name: 'model',
-                message: 'Model name please',
+                name: 'repository',
+                message: 'Repository name please',
             },
         ],
         actions: [
@@ -36,12 +36,12 @@ module.exports = function (plop) {
             },
             {
                 type: 'add',
-                path: 'src/database/repository/{{camelCase model}}/{{camelCase model}}.ts',
+                path: 'src/database/repository/{{camelCase repository}}/{{camelCase repository}}.ts',
                 templateFile: 'plop-templates/repository/repository.ts.hbs',
             },
             {
                 type: 'add',
-                path: 'src/database/repository/{{camelCase model}}/dto.ts',
+                path: 'src/database/repository/{{camelCase repository}}/dto.ts',
                 templateFile: 'plop-templates/repository/dto.ts.hbs',
             },
             {
