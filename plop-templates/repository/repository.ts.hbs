@@ -3,7 +3,7 @@ import { RequestParams } from '../../../helpers/requestParams'
 import { Schema } from '../../../database/sequelize/interface'
 import { Filter{{pascalCase model}}Dto, {{pascalCase model}}Dto } from './dto'
 
-class Repository {
+class {{pascalCase repository}}Repository {
     constructor(private logger: Logger, private schema: Schema) {}
 
     public async Fetch(request: RequestParams<Filter{{pascalCase model}}Dto>) {
