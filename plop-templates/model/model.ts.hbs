@@ -1,7 +1,7 @@
 import { DataTypes } from 'sequelize'
 import { Connection } from '../interface'
 
-const {{ pascalCase model }} = (connection: Connection) => {
+const {{ pascalCase repository }} = (connection: Connection) => {
     return connection.define(
         '{{snakeCase table}}',
         {
@@ -19,4 +19,4 @@ const {{ pascalCase model }} = (connection: Connection) => {
     )
 }
 
-export default {{pascalCase model }}
+export default {{pascalCase repository }}

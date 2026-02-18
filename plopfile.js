@@ -87,8 +87,8 @@ module.exports = function (plop) {
             },
             {
                 type: 'input',
-                name: 'model',
-                message: 'Model name please',
+                name: 'repository',
+                message: 'Repository name please',
                 default: 'post',
             },
             {
@@ -106,42 +106,42 @@ module.exports = function (plop) {
             },
             {
                 type: 'add',
-                path: 'src/database/repository/{{camelCase model}}/{{camelCase model}}.ts',
+                path: 'src/database/repository/{{camelCase repository}}/{{camelCase repository}}.ts',
                 templateFile: 'plop-templates/repository/repository.ts.hbs',
             },
             {
                 type: 'add',
-                path: 'src/database/repository/{{camelCase model}}/dto.ts',
+                path: 'src/database/repository/{{camelCase repository}}/dto.ts',
                 templateFile: 'plop-templates/repository/dto.ts.hbs',
             },
             {
                 type: 'add',
-                path: 'src/database/sequelize/models/{{kebabCase model}}.ts',
+                path: 'src/database/sequelize/models/{{kebabCase repository}}.ts',
                 templateFile: 'plop-templates/model/model.ts.hbs',
             },
             {
                 type: 'modify',
                 path: 'src/database/sequelize/interface.ts',
                 pattern: /(\/\/ Add other models if needed)/g,
-                template: '{{camelCase model}}: Model\n    $1',
+                template: '{{camelCase repository}}: Model\n    $1',
             },
             {
                 type: 'modify',
                 path: 'src/database/sequelize/sequelize.ts',
                 pattern: /(import { Connection } from '\.\/interface')/g,
-                template: "import {{pascalCase model}} from './models/{{kebabCase model}}'\n$1",
+                template: "import {{pascalCase repository}} from './models/{{kebabCase repository}}'\n$1",
             },
             {
                 type: 'modify',
                 path: 'src/database/sequelize/sequelize.ts',
                 pattern: /(\/\/ load all model on folder models)/g,
-                template: '$1\n        const {{camelCase model}} = {{pascalCase model}}(connection)',
+                template: '$1\n        const {{camelCase repository}} = {{pascalCase repository}}(connection)',
             },
             {
                 type: 'modify',
                 path: 'src/database/sequelize/sequelize.ts',
                 pattern: /(\/\/ Add other models if needed)/g,
-                template: '{{camelCase model}},\n            $1',
+                template: '{{camelCase repository}},\n            $1',
             },
         ],
     });

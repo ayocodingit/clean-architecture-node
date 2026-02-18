@@ -1,13 +1,13 @@
 import Logger from '../../../pkg/logger'
 import { RequestParams } from '../../../helpers/requestParams'
 import { Schema } from '../../../database/sequelize/interface'
-import { Filter{{pascalCase model}}Dto, {{pascalCase model}}Dto } from './dto'
+import { Filter{{pascalCase repository}}Dto, {{pascalCase repository}}Dto } from './dto'
 
 class {{pascalCase repository}}Repository {
     constructor(private logger: Logger, private schema: Schema) {}
 
-    public async Fetch(request: RequestParams<Filter{{pascalCase model}}Dto>) {
-        const { count, rows } = await this.schema.{{camelCase model}}.findAndCountAll({
+    public async Fetch(request: RequestParams<Filter{{pascalCase repository}}Dto>) {
+        const { count, rows } = await this.schema.{{camelCase repository}}.findAndCountAll({
             limit: request.per_page,
             offset: request.offset,
         })
@@ -18,8 +18,8 @@ class {{pascalCase repository}}Repository {
         }
     }
 
-    public async Store(body: {{pascalCase model}}Dto){
-        return this.schema.{{camelCase model}}.create({
+    public async Store(body: {{pascalCase repository}}Dto){
+        return this.schema.{{camelCase repository}}.create({
             title: body.title,
             description: body.description,
         })
