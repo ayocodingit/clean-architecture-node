@@ -76,6 +76,24 @@ module.exports = function (plop) {
 
 
 
+    plop.setGenerator('cron', {
+        description: 'Generate a new cron job',
+        prompts: [
+            {
+                type: 'input',
+                name: 'name',
+                message: 'Cron job name please',
+            },
+        ],
+        actions: [
+            {
+                type: 'add',
+                path: 'src/cron/{{kebabCase name}}.cron.ts',
+                templateFile: 'plop-templates/cron/cron.ts.hbs',
+            },
+        ],
+    });
+
     plop.setGenerator('migration', {
         description: 'Generate a new migration',
         prompts: [

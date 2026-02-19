@@ -15,7 +15,8 @@
         "migrate": "npx sequelize-cli db:migrate --config build/src/migrater.js --migrations-path build/src/database/sequelize/migrations",
         "migrate:rollback": "npx sequelize-cli db:migrate:undo --config build/src/migrater.js --migrations-path build/src/database/sequelize/migrations",
         "test": "APP_ENV=test APP_LOG=error npx jest",
-        "make:module": "plop module"
+        "make:module": "plop module",
+        "make:cron": "plop cron"
     },
     "keywords": [
         "clean-architecture",
